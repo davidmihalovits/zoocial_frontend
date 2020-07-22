@@ -1,0 +1,113 @@
+@import '../../App'
+
+.navbar     
+    .top
+        display: flex
+        position: fixed
+        background-color: white
+        width: 100%
+        top: 0
+        padding: 10px
+        z-index: 1000
+        box-shadow: 0 4px 8px 0 #0000000c
+    
+        a
+            color: $primary-color
+            font-family: 'Kaushan Script'
+            font-size: 30px
+            font-weight: bold
+
+        div
+            display: flex
+            align-items: center
+            margin-left: auto
+
+            p 
+                margin-right: 10px
+                font-size: 14px
+
+        
+            button
+                background-color: $primary-color
+                color: white
+                border: none
+                border-radius: 0px
+                text-transform: unset
+                padding: 5px 20px
+                display: block
+
+                &:hover 
+                    background-color: $primary-color
+
+    .bottom
+        position: fixed
+        bottom: 0
+        border-top: 1px solid #ebebeb
+        width: 100%
+        z-index: 1000
+        display: flex
+        justify-content: space-around
+        background-color: white
+
+        .modal
+            background-color: white
+            position: absolute
+            margin-top: -140px
+            z-index: 1000
+            width: 280px
+            border: none
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4)
+            display: flex
+
+            button
+                padding: 0
+                background-color: $primary-color
+                color: white
+                border-radius: 0px
+                text-transform: unset
+
+                &:disabled 
+                    background-color: #d1d1d1
+
+            input
+                border: none
+                outline: none
+                font-size: 20px
+                padding: 15px
+                width: 216px
+
+                &:focus 
+                    color: $primary-color
+
+        .post-button
+            position: fixed
+            margin-top: -55px
+            right: 3%
+            color: $primary-color
+                
+        img
+            width: 24.5px
+            height: 24.5px
+            object-fit: cover
+            border-radius: 50%
+
+        a 
+            width: 100%
+
+            button
+                width: 100%
+                padding: 6px 0 0 0
+                text-transform: unset
+                color: #505050
+
+                p
+                    font-size: 10px
+
+        .active 
+            button
+                color: $primary-color
+
+                img 
+                    border: 1.5px solid $primary-color
+        
+

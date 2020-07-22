@@ -1,26 +1,42 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from "react";
+import "./App.sass";
+import Navbar from "./components/navbar/Navbar";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { PrivateRoute } from "./PrivateRoute";
+import { connect } from "react-redux";
+import { profile } from "./redux/actions/actions";
+import Home from "./components/home/Home";
+import Login from "./components/login/Login";
+import Signup from "./components/signup/Signup";
+import Profile from "./components/profile/Profile";
+import Users from "./components/users/Users";
+import AnotherUser from "./components/anotherUser/AnotherUser";
+import Feed from "./components/feed/Feed";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = (props) => {
+    useEffect(() => {
+        props.profile();
+    }, [props]);
 
-export default App;
+    return (
+        <BrowserRouter>
+            <div className="App">
+                <Navbar />
+                <Switch>
+                    <Home exact path="/" component={Home} />
+                    <Login path="/login" component={Login} />
+                    <Signup path="/signup" component={Signup} />
+                    <PrivateRoute path="/profile" component={Profile} />
+                    <PrivateRoute path="/discover" component={Users} />
+                    <PrivateRoute path="/feed" component={Feed} />
+                    <PrivateRoute path="/user/:id" component={AnotherUser} />
+                    <Route path="*" component={Home} />
+                </Switch>
+            </div>
+        </BrowserRouter>
+    );
+};
+
+export default connect(null, {
+    profile,
+})(App);
