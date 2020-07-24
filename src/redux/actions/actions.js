@@ -21,6 +21,12 @@ import {
     FOLLOW,
     GET_FEED,
     GET_FEED_REQUEST,
+    GET_ANOTHER_POST,
+    GET_ANOTHER_POST_REQUEST,
+    GET_MY_POSTS_REQUEST,
+    GET_COMMENTS_REQUEST,
+    GET_COMMENTS,
+    COMMENT,
 } from "./types";
 import axios from "axios";
 
@@ -238,6 +244,10 @@ export const getAnotherUser = (id) => (dispatch) => {
 };
 
 export const getMyPosts = () => (dispatch) => {
+    dispatch({
+        type: GET_MY_POSTS_REQUEST,
+    });
+
     const token = localStorage.getItem("token");
 
     if (token) {
@@ -306,5 +316,63 @@ export const feed = () => (dispatch) => {
                     payload: res.data,
                 })
             );
+    }
+};
+
+export const getAnotherPost = (id) => (dispatch) => {
+    dispatch({
+        type: GET_ANOTHER_POST_REQUEST,
+    });
+
+    const token = localStorage.getItem("token");
+
+    if (token) {
+        axios
+            .get(`http://localhost:5000/getAnotherPost/${id.id}`, {
+                headers: { "X-Auth-Token": token },
+            })
+            .then((res) =>
+                dispatch({
+                    type: GET_ANOTHER_POST,
+                    payload: res.data,
+                })
+            );
+    }
+};
+
+export const getComments = (id) => (dispatch) => {
+    dispatch({
+        type: GET_COMMENTS_REQUEST,
+    });
+
+    const token = localStorage.getItem("token");
+
+    if (token) {
+        axios
+            .get(`http://localhost:5000/getComments/${id.id}`, {
+                headers: { "X-Auth-Token": token },
+            })
+            .then((res) =>
+                dispatch({
+                    type: GET_COMMENTS,
+                    payload: res.data,
+                })
+            );
+    }
+};
+
+export const comment = (comment) => (dispatch) => {
+    const token = localStorage.getItem("token");
+    if (token) {
+        axios
+            .post(`http://localhost:5000/comment/${comment.id}`, comment, {
+                headers: { "X-Auth-Token": token },
+            })
+            .then((res) => {
+                dispatch({
+                    type: COMMENT,
+                    payload: res.data,
+                });
+            });
     }
 };

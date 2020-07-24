@@ -11,6 +11,7 @@ import Signup from "./components/signup/Signup";
 import Profile from "./components/profile/Profile";
 import Users from "./components/users/Users";
 import AnotherUser from "./components/anotherUser/AnotherUser";
+import AnotherPost from "./components/anotherPost/AnotherPost";
 import Feed from "./components/feed/Feed";
 
 const App = (props) => {
@@ -30,6 +31,7 @@ const App = (props) => {
                     <PrivateRoute path="/discover" component={Users} />
                     <PrivateRoute path="/feed" component={Feed} />
                     <PrivateRoute path="/user/:id" component={AnotherUser} />
+                    <PrivateRoute path="/post/:id" component={AnotherPost} />
                     <Route path="*" component={Home} />
                 </Switch>
             </div>

@@ -18,6 +18,7 @@ import {
     faHeart,
     faHeartBroken,
     faSpinner,
+    faCommentAlt,
 } from "@fortawesome/free-solid-svg-icons";
 
 const AnotherUser = (props) => {
@@ -167,12 +168,8 @@ const AnotherUser = (props) => {
                                                 ago
                                             </div>
                                         </div>
-                                        <div>
+                                        <div className="post-bottom-buttons">
                                             <Button
-                                                style={{
-                                                    color: "#42a5f5",
-                                                    fontSize: "20px",
-                                                }}
                                                 onClick={() =>
                                                     props.like({
                                                         id: a._id,
@@ -183,7 +180,7 @@ const AnotherUser = (props) => {
                                                         user.user._id
                                                     )
                                                         ? "liked"
-                                                        : null
+                                                        : "like-button"
                                                 }
                                             >
                                                 {a.likes}
@@ -195,10 +192,6 @@ const AnotherUser = (props) => {
                                                 />
                                             </Button>
                                             <Button
-                                                style={{
-                                                    color: "#FA5C98",
-                                                    fontSize: "20px",
-                                                }}
                                                 onClick={() =>
                                                     props.dislike({
                                                         id: a._id,
@@ -209,7 +202,7 @@ const AnotherUser = (props) => {
                                                         user.user._id
                                                     )
                                                         ? "disliked"
-                                                        : null
+                                                        : "dislike-button"
                                                 }
                                             >
                                                 {a.dislikes}
@@ -220,6 +213,17 @@ const AnotherUser = (props) => {
                                                     }}
                                                 />
                                             </Button>
+                                            <Link to={`/post/${a._id}`}>
+                                                <Button className="comment-button">
+                                                    {a.commentCount}
+                                                    <FontAwesomeIcon
+                                                        icon={faCommentAlt}
+                                                        style={{
+                                                            marginLeft: "10px",
+                                                        }}
+                                                    />
+                                                </Button>
+                                            </Link>
                                         </div>
                                     </div>
                                 );

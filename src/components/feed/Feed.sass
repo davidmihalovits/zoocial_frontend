@@ -18,6 +18,33 @@
             margin: 10px auto 0 auto
             padding: 15px 0
 
+            .buttons-flexbox
+                display: flex
+                justify-content: space-around
+                align-items: center
+
+                .comment-button
+                    color: #505050
+
+                .like-button
+                    color: $primary-color
+                
+                .dislike-button
+                    color: $secondary-color
+                
+                button
+                    margin-top: 10px
+                    font-size: 18px
+                    height: 40px
+
+                .liked
+                    background-color: rgba(66,164,245, 0.2)
+                    color: $primary-color
+
+                .disliked
+                    background-color: rgba(250,92,152, 0.2)
+                    color: $secondary-color
+
             .post
                 font-size: 22px
                 margin: 30px 0
@@ -33,10 +60,6 @@
                     border-radius: 50%
                     margin-right: 10px
 
-            .liked
-                background-color: rgba(66,164,245, 0.2)
-
-            .disliked
-                background-color: rgba(250,92,152, 0.2)
+            
 
 

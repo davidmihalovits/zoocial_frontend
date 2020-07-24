@@ -103,11 +103,11 @@
             background-color: #f0f6fa
             box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1)
             margin-top: 20px
+            padding: 10px
 
             .post-date
                 display: flex
                 flex-direction: column
-                padding: 10px 40px 0px 10px
                 word-wrap: break-word
                 text-align: left
 
@@ -118,27 +118,29 @@
                     opacity: 0.2
                     cursor: pointer
 
-            div
+            .post-bottom-buttons
                 display: flex
-                justify-content: space-between
+                justify-content: space-around
+                align-items: center
 
+                .comment-button
+                    color: #505050
+
+                .like-button
+                    color: $primary-color
+                    
+                .dislike-button
+                    color: $secondary-color
+                    
                 button
-                    width: 100%
-                    margin: 15px 0 0 0
-                    border-top-right-radius: 0px
-                    border-top-left-radius: 0px
+                    margin-top: 15px
+                    font-size: 18px
+                    height: 40px
 
-                button:nth-child(1)
-                    border-bottom-right-radius: 0px
-                    border-bottom-left-radius: 8px
+                .liked
+                    background-color: rgba(66,164,245, 0.2)
+                    color: $primary-color
 
-                button:nth-child(2)
-                    border-bottom-left-radius: 0px
-                    border-bottom-right-radius: 8px
-
-            .liked
-                background-color: rgba(66,164,245, 0.2)
-
-            .disliked
-                background-color: rgba(250,92,152, 0.2)
-        
+                .disliked
+                    background-color: rgba(250,92,152, 0.2)
+                    color: $secondary-color

@@ -21,6 +21,12 @@ import {
     FOLLOW,
     GET_FEED,
     GET_FEED_REQUEST,
+    GET_ANOTHER_POST,
+    GET_ANOTHER_POST_REQUEST,
+    GET_MY_POSTS_REQUEST,
+    GET_COMMENTS_REQUEST,
+    GET_COMMENTS,
+    COMMENT,
 } from "../actions/types";
 
 const initialState = {
@@ -32,6 +38,8 @@ const initialState = {
     users: [],
     anotherUser: {},
     posts: [],
+    post: {},
+    comments: [],
 };
 
 export default function (state = initialState, action) {
@@ -114,10 +122,16 @@ export default function (state = initialState, action) {
                 users: [],
                 loading: false,
             };
+        case GET_MY_POSTS_REQUEST:
+            return {
+                ...state,
+                loading: true,
+            };
         case GET_MY_POSTS:
             return {
                 ...state,
                 posts: action.payload,
+                loading: false,
             };
         case GET_ANOTHER_USER_POSTS:
             return {
@@ -144,6 +158,7 @@ export default function (state = initialState, action) {
                     }
                     return p;
                 }),
+                post: action.payload,
             };
         case DISLIKE:
             return {
@@ -154,6 +169,7 @@ export default function (state = initialState, action) {
                     }
                     return p;
                 }),
+                post: action.payload,
             };
         case POST_POST:
             return {
@@ -166,6 +182,34 @@ export default function (state = initialState, action) {
             return { ...state, user: action.payload };
         case FOLLOW:
             return { ...state, anotherUser: action.payload };
+        case GET_ANOTHER_POST:
+            return {
+                ...state,
+                post: action.payload,
+                loading: false,
+            };
+        case GET_ANOTHER_POST_REQUEST:
+            return {
+                ...state,
+                loading: true,
+            };
+        case GET_COMMENTS_REQUEST:
+            return {
+                ...state,
+                loading: true,
+                comments: [],
+            };
+        case GET_COMMENTS:
+            return {
+                ...state,
+                loading: false,
+                comments: action.payload,
+            };
+        case COMMENT:
+            return {
+                ...state,
+                comments: [...state.comments, action.payload],
+            };
         default:
             return state;
     }
