@@ -1,0 +1,36 @@
+@import '../../App'
+
+.post-something
+    margin: 90px auto
+    width: 280px
+    display: flex
+    flex-direction: column
+
+    .post-spinner
+        position: absolute
+        color: $primary-color
+
+    textarea
+        resize: none
+        height: 200px
+        outline: none
+        padding: 10px
+        color: $primary-color
+        border: none
+        background-color: #f7f7f7a8
+        font-size: 22px
+
+    button
+        background-color: $primary-color
+        color: white
+        border-radius: 0px
+        margin-top: 20px
+        font-size: 28px
+        text-transform: unset
+        height: 60.8px
+
+        &:disabled 
+            background-color: #d1d1d1
+
+        &:focus
+            background-color: $primary-color

@@ -1,61 +1,45 @@
 @import '../../App'
 
 .feed
-    padding-bottom: 100px
-    padding-top: 80px 
-    background-color: #f0f6fa
-
-    .spinner
-        font-size: 40px
-        margin: 80px auto 0 auto
-        width: 100%
+    margin: 90px auto
+    width: 280px
 
     .feed-posts
-        background-color: white
-
         .feed-post
-            width: 280px
-            margin: 10px auto 0 auto
-            padding: 15px 0
+            border-bottom: 1px solid #ebebeb
+            padding-bottom: 10px
+            margin-bottom: 10px
+            word-wrap: break-word
 
             .buttons-flexbox
                 display: flex
-                justify-content: space-around
                 align-items: center
 
                 .comment-button
-                    color: #505050
-
-                .like-button
-                    color: $primary-color
-                
-                .dislike-button
-                    color: $secondary-color
+                    margin-left: auto
                 
                 button
-                    margin-top: 10px
-                    font-size: 18px
+                    margin-top: 15px
+                    font-size: 16px
                     height: 40px
+                    padding: 0px
 
                 .liked
-                    background-color: rgba(66,164,245, 0.2)
                     color: $primary-color
 
                 .disliked
-                    background-color: rgba(250,92,152, 0.2)
-                    color: $secondary-color
+                    color: $primary-color
 
             .post
                 font-size: 22px
-                margin: 30px 0
 
             .feed-flexbox
                 display: flex
                 align-items: center
 
                 img 
-                    width: 35px
-                    height: 35px
+                    width: 45px
+                    height: 45px
                     object-fit: cover
                     border-radius: 50%
                     margin-right: 10px

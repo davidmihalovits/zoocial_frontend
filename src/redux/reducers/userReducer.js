@@ -11,6 +11,7 @@ import {
     LIKE,
     DISLIKE,
     POST_POST,
+    POST_POST_REQUEST,
     DELETE_POST,
     UPDATE_PROFILE,
     USERS,
@@ -27,6 +28,11 @@ import {
     GET_COMMENTS_REQUEST,
     GET_COMMENTS,
     COMMENT,
+    SEARCH_ERROR,
+    SEARCH,
+    SEARCH_REQUEST,
+    GET_NOTIFICATIONS,
+    READ_NOTIFICATIONS,
 } from "../actions/types";
 
 const initialState = {
@@ -40,6 +46,8 @@ const initialState = {
     posts: [],
     post: {},
     comments: [],
+    search: {},
+    notifications: [],
 };
 
 export default function (state = initialState, action) {
@@ -95,14 +103,18 @@ export default function (state = initialState, action) {
         case LOGOUT:
             return {
                 ...state,
-                token: null,
-                error: null,
+                user: {},
                 authenticated: false,
                 loading: false,
-                user: {},
+                error: null,
                 users: [],
                 anotherUser: {},
                 posts: [],
+                post: {},
+                comments: [],
+                search: {},
+                notifications: [],
+                token: null,
             };
         case USERS:
             return {
@@ -171,10 +183,16 @@ export default function (state = initialState, action) {
                 }),
                 post: action.payload,
             };
+        case POST_POST_REQUEST:
+            return {
+                ...state,
+                loading: true,
+            };
         case POST_POST:
             return {
                 ...state,
                 posts: [...state.posts, action.payload],
+                loading: false,
             };
         case DELETE_POST:
             return { ...state, posts: action.payload };
@@ -209,6 +227,34 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 comments: [...state.comments, action.payload],
+            };
+        case SEARCH_REQUEST:
+            return {
+                ...state,
+                search: {},
+                error: null,
+            };
+        case SEARCH:
+            return {
+                ...state,
+                search: action.payload,
+                error: null,
+            };
+        case SEARCH_ERROR:
+            return {
+                ...state,
+                search: {},
+                error: action.payload,
+            };
+        case GET_NOTIFICATIONS:
+            return {
+                ...state,
+                notifications: action.payload,
+            };
+        case READ_NOTIFICATIONS:
+            return {
+                ...state,
+                notifications: action.payload,
             };
         default:
             return state;

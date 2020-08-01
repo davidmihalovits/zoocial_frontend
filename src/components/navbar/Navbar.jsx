@@ -1,82 +1,97 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Navbar.sass";
 import Button from "@material-ui/core/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faListAlt,
     faUserFriends,
+    faSearch,
+    faBell,
+    faCertificate,
     faPaperPlane,
 } from "@fortawesome/free-solid-svg-icons";
 import noImg from "../../assets/noImg.png";
 import { Link, withRouter, NavLink } from "react-router-dom";
 import { connect, useSelector } from "react-redux";
-import { logout, postPost } from "../../redux/actions/actions";
+import { searchAll, getNotifications } from "../../redux/actions/actions";
+
+//const socket = require("socket.io-client")("http://localhost:5000");
+//socket.emit("user", user.user);
+/*socket.emit("data", user.user);
+    socket.on("notification", () => {
+        console.log("new notification yo");
+});*/
 
 const Navbar = (props) => {
-    const [modal, setModal] = useState(false);
-    const [post, setPost] = useState("");
+    const [search, setSearch] = useState("");
 
     const user = useSelector((state) => state.userReducer);
 
-    const logout = () => {
-        props.logout();
-        props.history.push("/");
-    };
+    useEffect(() => {
+        props.getNotifications();
+    }, [props]);
 
-    const postPost = (e) => {
+    const searchAll = (e) => {
         e.preventDefault();
 
-        props.postPost({
-            post: post,
-        });
+        props.searchAll(
+            {
+                search: search,
+            },
+            props.history
+        );
 
-        setModal(false);
-        setPost("");
+        setSearch("");
     };
 
-    const enabled = post.length > 0 && post.length < 100;
+    const abc = user.notifications.map((a) => a.read);
 
     return (
         <div className="navbar">
             <div className="top">
-                <Link to="/">zoocial</Link>
-                <div>
+                <Link to="/">
+                    <h1 className="title">zoocial</h1>
+                </Link>
+                <div className="top-right">
                     {user.authenticated ? (
-                        <Button onClick={logout}>Logout</Button>
+                        <>
+                            <input
+                                className="search-input"
+                                placeholder={
+                                    user.error ? user.error : "Search..."
+                                }
+                                id="search"
+                                name="search"
+                                type="text"
+                                value={search}
+                                onChange={(e) => setSearch(e.target.value)}
+                            />
+                            <FontAwesomeIcon
+                                className="search-button"
+                                icon={faSearch}
+                                onClick={searchAll}
+                            />
+                            <Link to="/notifications">
+                                <FontAwesomeIcon
+                                    icon={faBell}
+                                    className="bell"
+                                />
+                            </Link>
+                            {abc.includes(false) && (
+                                <p className="badge">
+                                    <FontAwesomeIcon icon={faCertificate} />
+                                </p>
+                            )}
+                        </>
                     ) : (
                         <Link to="/login">
-                            <Button>Login</Button>
+                            <Button className="login-button">Login</Button>
                         </Link>
                     )}
                 </div>
             </div>
             {user.authenticated && (
                 <div className="bottom">
-                    <Button
-                        onClick={() => {
-                            setModal(!modal);
-                            setPost("");
-                        }}
-                        className="post-button"
-                    >
-                        <FontAwesomeIcon icon={faPaperPlane} size="2x" />
-                    </Button>
-                    {modal && (
-                        <div className="modal">
-                            <input
-                                placeholder="Your post..."
-                                id="post"
-                                name="post"
-                                type="text"
-                                value={post}
-                                onChange={(e) => setPost(e.target.value)}
-                            />
-                            <Button onClick={postPost} disabled={!enabled}>
-                                Post
-                            </Button>
-                        </div>
-                    )}
-
                     <NavLink to="/feed" activeClassName="active">
                         <Button>
                             <div>
@@ -93,6 +108,17 @@ const Navbar = (props) => {
                                     size="2x"
                                 />
                                 <p>Discover</p>
+                            </div>
+                        </Button>
+                    </NavLink>
+                    <NavLink to="/post">
+                        <Button>
+                            <div>
+                                <FontAwesomeIcon
+                                    icon={faPaperPlane}
+                                    size="2x"
+                                />
+                                <p>Post</p>
                             </div>
                         </Button>
                     </NavLink>
@@ -114,4 +140,7 @@ const Navbar = (props) => {
     );
 };
 
-export default connect(null, { logout, postPost })(withRouter(Navbar));
+export default connect(null, {
+    searchAll,
+    getNotifications,
+})(withRouter(Navbar));

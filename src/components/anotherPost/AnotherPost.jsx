@@ -171,6 +171,7 @@ const AnotherPost = (props) => {
                                         <Button
                                             onClick={postComment}
                                             disabled={!enabled}
+                                            className="post-comment-button"
                                         >
                                             Post
                                         </Button>
@@ -179,48 +180,41 @@ const AnotherPost = (props) => {
                             </div>
                         </div>
                     </div>
-                    {user.comments
-                        .map((c, key) => {
-                            return (
-                                <div className="comments" key={key}>
-                                    <div className="comments-flexbox">
-                                        <Link
-                                            to={
-                                                c.by &&
-                                                c.by._id === user.user._id
-                                                    ? `/profile`
-                                                    : `/user/${
-                                                          c.by && c.by._id
-                                                      }`
-                                            }
+                    {user.comments.map((c, key) => {
+                        return (
+                            <div className="comments" key={key}>
+                                <div className="comments-flexbox">
+                                    <Link
+                                        to={
+                                            c.by && c.by._id === user.user._id
+                                                ? `/profile`
+                                                : `/user/${c.by && c.by._id}`
+                                        }
+                                    >
+                                        {c.by.image ? (
+                                            <img src={c.by.image} alt="" />
+                                        ) : (
+                                            <img src={noImg} alt="" />
+                                        )}
+                                    </Link>
+                                    <div>
+                                        <p>{c.by.username}</p>
+                                        <p
+                                            style={{
+                                                color: "#d1d1d1",
+                                                fontSize: "12px",
+                                                marginTop: "5px",
+                                            }}
                                         >
-                                            {c.by.image ? (
-                                                <img src={c.by.image} alt="" />
-                                            ) : (
-                                                <img src={noImg} alt="" />
-                                            )}
-                                        </Link>
-                                        <div>
-                                            <p>{c.by.username}</p>
-                                            <p
-                                                style={{
-                                                    color: "#d1d1d1",
-                                                    fontSize: "12px",
-                                                    marginTop: "5px",
-                                                }}
-                                            >
-                                                {dayjs(c.createdAt).fromNow(
-                                                    true
-                                                )}{" "}
-                                                ago
-                                            </p>
-                                        </div>
+                                            {dayjs(c.createdAt).fromNow(true)}{" "}
+                                            ago
+                                        </p>
                                     </div>
-                                    <p className="comment">{c.comment}</p>
                                 </div>
-                            );
-                        })
-                        .reverse()}
+                                <p className="comment">{c.comment}</p>
+                            </div>
+                        );
+                    })}
                 </div>
             )}
         </div>

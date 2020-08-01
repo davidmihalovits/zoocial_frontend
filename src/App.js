@@ -13,6 +13,9 @@ import Users from "./components/users/Users";
 import AnotherUser from "./components/anotherUser/AnotherUser";
 import AnotherPost from "./components/anotherPost/AnotherPost";
 import Feed from "./components/feed/Feed";
+import Search from "./components/search/Search";
+import Post from "./components/post/Post";
+import Notifications from "./components/notifications/Notifications";
 
 const App = (props) => {
     useEffect(() => {
@@ -30,8 +33,14 @@ const App = (props) => {
                     <PrivateRoute path="/profile" component={Profile} />
                     <PrivateRoute path="/discover" component={Users} />
                     <PrivateRoute path="/feed" component={Feed} />
+                    <PrivateRoute path="/search" component={Search} />
                     <PrivateRoute path="/user/:id" component={AnotherUser} />
                     <PrivateRoute path="/post/:id" component={AnotherPost} />
+                    <PrivateRoute path="/post" component={Post} />
+                    <PrivateRoute
+                        path="/notifications"
+                        component={Notifications}
+                    />
                     <Route path="*" component={Home} />
                 </Switch>
             </div>

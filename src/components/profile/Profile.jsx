@@ -10,6 +10,7 @@ import {
     deletePost,
     updateProfile,
     getMyPosts,
+    logout,
 } from "../../redux/actions/actions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -43,7 +44,7 @@ const Profile = (props) => {
         props.getMyPosts();
         props.profile();
         window.scrollTo(0, 0);
-    }, [props]);
+    }, []);
 
     const update = (e) => {
         e.preventDefault();
@@ -87,6 +88,11 @@ const Profile = (props) => {
                     });
             }
         );
+    };
+
+    const logout = () => {
+        props.logout();
+        props.history.push("/");
     };
 
     return (
@@ -149,7 +155,7 @@ const Profile = (props) => {
                     <p>Member for {dayjs(user.user.createdAt).fromNow(true)}</p>
                 </div>
                 <Button
-                    className="edit-button"
+                    className="edit-logout-button"
                     onClick={() => {
                         setModal(!modal);
                         setUsername(user.user.username);
@@ -161,6 +167,9 @@ const Profile = (props) => {
                     }}
                 >
                     Edit Profile
+                </Button>
+                <Button className="edit-logout-button" onClick={logout}>
+                    Logout
                 </Button>
                 {modal && (
                     <div className="modal">
@@ -221,7 +230,7 @@ const Profile = (props) => {
                     </div>
                 )}
 
-                <div className="following">
+                <div className="following-followers">
                     <p>Following:</p>
                     <div>
                         {user.user.following &&
@@ -238,7 +247,7 @@ const Profile = (props) => {
                             })}
                     </div>
                 </div>
-                <div className="followers">
+                <div className="following-followers">
                     <p>Followers:</p>
                     <div>
                         {user.user.followers &&
@@ -268,7 +277,7 @@ const Profile = (props) => {
                             .map((a, key) => {
                                 return (
                                     <div className="post" key={key}>
-                                        <div className="post-date">
+                                        <div className="post-flex">
                                             <FontAwesomeIcon
                                                 icon={faTrash}
                                                 className="delete"
@@ -278,22 +287,38 @@ const Profile = (props) => {
                                                     })
                                                 }
                                             />
-                                            <p style={{ fontSize: "18px" }}>
-                                                {a.post}
-                                            </p>
-                                            <div
-                                                style={{
-                                                    color: "#d1d1d1",
-                                                    fontSize: "12px",
-                                                    marginTop: "5px",
-                                                }}
-                                            >
-                                                {dayjs(a.createdAt).fromNow(
-                                                    true
-                                                )}{" "}
-                                                ago
+                                            {user.user.image ? (
+                                                <img
+                                                    src={user.user.image}
+                                                    alt=""
+                                                />
+                                            ) : (
+                                                <img src={noImg} alt="" />
+                                            )}
+                                            <div className="post-date">
+                                                {user.user.username}
+                                                <p
+                                                    style={{
+                                                        color: "#d1d1d1",
+                                                        fontSize: "12px",
+                                                        marginTop: "5px",
+                                                    }}
+                                                >
+                                                    {dayjs(a.createdAt).fromNow(
+                                                        true
+                                                    )}{" "}
+                                                    ago
+                                                </p>
                                             </div>
                                         </div>
+                                        <p
+                                            style={{
+                                                fontSize: "22px",
+                                                wordBreak: "break-word",
+                                            }}
+                                        >
+                                            {a.post}
+                                        </p>
                                         <div className="post-bottom-buttons">
                                             <Button
                                                 onClick={() =>
@@ -339,8 +364,11 @@ const Profile = (props) => {
                                                     }}
                                                 />
                                             </Button>
-                                            <Link to={`/post/${a._id}`}>
-                                                <Button className="comment-button">
+                                            <Link
+                                                to={`/post/${a._id}`}
+                                                className="comment-button"
+                                            >
+                                                <Button>
                                                     {a.commentCount}
                                                     <FontAwesomeIcon
                                                         icon={faCommentAlt}
@@ -369,4 +397,5 @@ export default connect(null, {
     deletePost,
     updateProfile,
     getMyPosts,
+    logout,
 })(withRouter(Profile));

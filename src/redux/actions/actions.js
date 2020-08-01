@@ -11,6 +11,7 @@ import {
     LIKE,
     DISLIKE,
     POST_POST,
+    POST_POST_REQUEST,
     DELETE_POST,
     UPDATE_PROFILE,
     USERS,
@@ -27,6 +28,11 @@ import {
     GET_COMMENTS_REQUEST,
     GET_COMMENTS,
     COMMENT,
+    SEARCH,
+    SEARCH_ERROR,
+    SEARCH_REQUEST,
+    GET_NOTIFICATIONS,
+    READ_NOTIFICATIONS,
 } from "./types";
 import axios from "axios";
 
@@ -126,7 +132,7 @@ export const logout = () => (dispatch) => {
     });
 };
 
-export const like = (id) => (dispatch) => {
+export const like = (id, user, post) => (dispatch) => {
     const token = localStorage.getItem("token");
     if (token) {
         axios
@@ -139,6 +145,12 @@ export const like = (id) => (dispatch) => {
                     payload: res.data,
                 });
             });
+        /*.then(() => {
+                const socket = require("socket.io-client")(
+                    "http://localhost:5000"
+                );
+                socket.emit("like", user, post);
+            });*/
     }
 };
 
@@ -158,7 +170,11 @@ export const dislike = (id) => (dispatch) => {
     }
 };
 
-export const postPost = (post) => (dispatch) => {
+export const postPost = (post, history) => (dispatch) => {
+    dispatch({
+        type: POST_POST_REQUEST,
+    });
+
     const token = localStorage.getItem("token");
     if (token) {
         axios
@@ -170,6 +186,7 @@ export const postPost = (post) => (dispatch) => {
                     type: POST_POST,
                     payload: res.data,
                 });
+                history.push("/feed");
             });
     }
 };
@@ -223,10 +240,6 @@ export const users = () => (dispatch) => {
 };
 
 export const getAnotherUser = (id) => (dispatch) => {
-    dispatch({
-        type: GET_ANOTHER_USER_REQUEST,
-    });
-
     const token = localStorage.getItem("token");
 
     if (token) {
@@ -244,10 +257,6 @@ export const getAnotherUser = (id) => (dispatch) => {
 };
 
 export const getMyPosts = () => (dispatch) => {
-    dispatch({
-        type: GET_MY_POSTS_REQUEST,
-    });
-
     const token = localStorage.getItem("token");
 
     if (token) {
@@ -299,10 +308,6 @@ export const follow = (id) => (dispatch) => {
 };
 
 export const feed = () => (dispatch) => {
-    dispatch({
-        type: GET_FEED_REQUEST,
-    });
-
     const token = localStorage.getItem("token");
 
     if (token) {
@@ -320,10 +325,6 @@ export const feed = () => (dispatch) => {
 };
 
 export const getAnotherPost = (id) => (dispatch) => {
-    dispatch({
-        type: GET_ANOTHER_POST_REQUEST,
-    });
-
     const token = localStorage.getItem("token");
 
     if (token) {
@@ -341,10 +342,6 @@ export const getAnotherPost = (id) => (dispatch) => {
 };
 
 export const getComments = (id) => (dispatch) => {
-    dispatch({
-        type: GET_COMMENTS_REQUEST,
-    });
-
     const token = localStorage.getItem("token");
 
     if (token) {
@@ -374,5 +371,67 @@ export const comment = (comment) => (dispatch) => {
                     payload: res.data,
                 });
             });
+    }
+};
+
+export const searchAll = (search, history) => (dispatch) => {
+    const token = localStorage.getItem("token");
+    if (token) {
+        axios
+            .post("http://localhost:5000/search", search, {
+                headers: { "X-Auth-Token": token },
+            })
+            .then((res) => {
+                if (res.data.status === "Enter some text.") {
+                    dispatch({
+                        type: SEARCH_ERROR,
+                        payload: res.data.status,
+                    });
+                } else {
+                    dispatch({
+                        type: SEARCH,
+                        payload: res.data,
+                    });
+                    history.push("/search");
+                }
+            });
+    }
+};
+
+export const getNotifications = () => (dispatch) => {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+        axios
+            .get("http://localhost:5000/getNotifications", {
+                headers: { "X-Auth-Token": token },
+            })
+            .then((res) =>
+                dispatch({
+                    type: GET_NOTIFICATIONS,
+                    payload: res.data,
+                })
+            );
+    }
+};
+
+export const readNotification = () => (dispatch) => {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+        axios
+            .put(
+                "http://localhost:5000/readNotification",
+                {},
+                {
+                    headers: { "X-Auth-Token": token },
+                }
+            )
+            .then((res) =>
+                dispatch({
+                    type: READ_NOTIFICATIONS,
+                    payload: res.data,
+                })
+            );
     }
 };

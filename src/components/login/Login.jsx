@@ -63,20 +63,20 @@ const Login = (props) => {
                 {hidden ? (
                     <FontAwesomeIcon
                         onClick={showPassword}
-                        className="show-hide"
+                        className="login-show-hide"
                         icon={faEyeSlash}
                     />
                 ) : (
                     <FontAwesomeIcon
                         onClick={showPassword}
-                        className="show-hide"
+                        className="login-show-hide"
                         icon={faEye}
                     />
                 )}
                 <Button type="submit" disabled={!enabled || user.loading}>
                     {user.loading ? (
                         <FontAwesomeIcon
-                            className="spinner"
+                            className="login-spinner"
                             spin
                             icon={faSpinner}
                         />

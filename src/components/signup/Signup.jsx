@@ -74,20 +74,20 @@ const Signup = (props) => {
                 {hidden ? (
                     <FontAwesomeIcon
                         onClick={showPassword}
-                        className="show-hide"
+                        className="signup-show-hide"
                         icon={faEyeSlash}
                     />
                 ) : (
                     <FontAwesomeIcon
                         onClick={showPassword}
-                        className="show-hide"
+                        className="signup-show-hide"
                         icon={faEye}
                     />
                 )}
                 <Button type="submit" disabled={!enabled || user.loading}>
                     {user.loading ? (
                         <FontAwesomeIcon
-                            className="spinner"
+                            className="signup-spinner"
                             spin
                             icon={faSpinner}
                         />

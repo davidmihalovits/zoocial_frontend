@@ -1,20 +1,14 @@
 @import '../../App'
 
-.spinner
-    font-size: 40px
-    margin-top: 120px 
-
 .another-post
-    margin-bottom: 100px
-    padding: 80px 0 10px 0
-    background-color: #f0f6fa
+    margin: 90px auto
+    width: 280px
 
     .comments
         width: 220px
-        margin: 30px auto 0 auto
+        margin: 10px auto 0 auto
 
         .comment
-            font-size: 18px
             margin-top: 10px
             word-wrap: break-word
 
@@ -29,20 +23,17 @@
                 border-radius: 50%
                 margin-right: 10px
 
-
     .container
-        background-color: white
+        border-bottom: 1px solid #ebebeb
+        padding-bottom: 10px
 
         .the-post
-            width: 280px
-            margin: 0 auto
-            padding: 15px 0
-
+            word-wrap: break-word
+            
             .buttons-flex
                 display: flex
 
                 .modal
-                    background-color: white
                     position: fixed
                     margin-top: -60px
                     z-index: 1000
@@ -51,13 +42,13 @@
                     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4)
                     display: flex
 
-                    button
+                    .post-comment-button
                         background-color: $primary-color
                         color: white
                         border-radius: 0px
                         text-transform: unset
                         margin: 0px
-                        height: 54px
+                        height: 58px
 
                         &:disabled 
                             background-color: #d1d1d1
@@ -72,40 +63,30 @@
                         &:focus 
                             color: $primary-color
 
-                .like-button
-                    color: $primary-color
-                        
-                .dislike-button
-                    color: $secondary-color
-
                 .comment-button
-                    color: #505050
                     margin-left: auto
                 
                 button
                     margin-top: 15px
-                    font-size: 18px
+                    font-size: 16px
                     height: 40px
+                    padding: 0px
 
                 .liked
-                    background-color: rgba(66,164,245, 0.2)
                     color: $primary-color
 
                 .disliked
-                    background-color: rgba(250,92,152, 0.2)
-                    color: $secondary-color
+                    color: $primary-color
 
             .post
                 font-size: 22px
-                margin: 20px 0 0 0
 
             .another-post-flexbox
                 display: flex
-                align-items: center
 
                 img 
-                    width: 35px
-                    height: 35px
+                    width: 45px
+                    height: 45px
                     object-fit: cover
                     border-radius: 50%
                     margin-right: 10px

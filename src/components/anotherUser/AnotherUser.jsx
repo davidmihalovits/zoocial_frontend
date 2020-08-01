@@ -97,7 +97,7 @@ const AnotherUser = (props) => {
                             </Button>
                         )}
 
-                    <div className="following">
+                    <div className="following-followers">
                         <p>Following:</p>
                         <div>
                             {user.anotherUser.following &&
@@ -121,7 +121,7 @@ const AnotherUser = (props) => {
                                 })}
                         </div>
                     </div>
-                    <div className="followers">
+                    <div className="following-followers">
                         <p>Followers:</p>
                         <div>
                             {user.anotherUser.followers &&
@@ -150,24 +150,36 @@ const AnotherUser = (props) => {
                         {user.posts
                             .map((a, key) => {
                                 return (
-                                    <div className="post" key={key}>
-                                        <div className="post-date">
-                                            <p style={{ fontSize: "18px" }}>
-                                                {a.post}
-                                            </p>
-                                            <div
-                                                style={{
-                                                    color: "#d1d1d1",
-                                                    fontSize: "12px",
-                                                    marginTop: "5px",
-                                                }}
-                                            >
-                                                {dayjs(a.createdAt).fromNow(
-                                                    true
-                                                )}{" "}
-                                                ago
+                                    <div
+                                        className="another-user-post"
+                                        key={key}
+                                    >
+                                        <div className="post-by">
+                                            {user.anotherUser.image ? (
+                                                <img
+                                                    src={user.anotherUser.image}
+                                                    alt=""
+                                                />
+                                            ) : (
+                                                <img src={noImg} alt="" />
+                                            )}
+                                            <div className="post-date">
+                                                {user.anotherUser.username}
+                                                <div
+                                                    style={{
+                                                        color: "#d1d1d1",
+                                                        fontSize: "12px",
+                                                        marginTop: "5px",
+                                                    }}
+                                                >
+                                                    {dayjs(a.createdAt).fromNow(
+                                                        true
+                                                    )}{" "}
+                                                    ago
+                                                </div>
                                             </div>
                                         </div>
+                                        <p className="post">{a.post}</p>
                                         <div className="post-bottom-buttons">
                                             <Button
                                                 onClick={() =>
@@ -213,8 +225,11 @@ const AnotherUser = (props) => {
                                                     }}
                                                 />
                                             </Button>
-                                            <Link to={`/post/${a._id}`}>
-                                                <Button className="comment-button">
+                                            <Link
+                                                to={`/post/${a._id}`}
+                                                className="comment-button"
+                                            >
+                                                <Button>
                                                     {a.commentCount}
                                                     <FontAwesomeIcon
                                                         icon={faCommentAlt}

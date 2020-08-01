@@ -81,9 +81,17 @@ const Feed = (props) => {
                                             <div className="buttons-flexbox">
                                                 <Button
                                                     onClick={() =>
-                                                        props.like({
-                                                            id: a._id,
-                                                        })
+                                                        props.like(
+                                                            {
+                                                                id: a._id,
+                                                            }
+                                                            /*{
+                                                                user: user.user,
+                                                            },
+                                                            {
+                                                                post: a,
+                                                            }*/
+                                                        )
                                                     }
                                                     className={
                                                         a.likedBy.includes(
@@ -123,8 +131,11 @@ const Feed = (props) => {
                                                         }}
                                                     />
                                                 </Button>
-                                                <Link to={`/post/${a._id}`}>
-                                                    <Button className="comment-button">
+                                                <Link
+                                                    to={`/post/${a._id}`}
+                                                    className="comment-button"
+                                                >
+                                                    <Button>
                                                         {a.commentCount}
                                                         <FontAwesomeIcon
                                                             icon={faCommentAlt}
