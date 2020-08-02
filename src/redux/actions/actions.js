@@ -144,17 +144,17 @@ export const like = (id, user, post) => (dispatch) => {
                     type: LIKE,
                     payload: res.data,
                 });
-            });
-        /*.then(() => {
+            })
+            .then(() => {
                 const socket = require("socket.io-client")(
                     "http://localhost:5000"
                 );
                 socket.emit("like", user, post);
-            });*/
+            });
     }
 };
 
-export const dislike = (id) => (dispatch) => {
+export const dislike = (id, user, post) => (dispatch) => {
     const token = localStorage.getItem("token");
     if (token) {
         axios
@@ -166,6 +166,12 @@ export const dislike = (id) => (dispatch) => {
                     type: DISLIKE,
                     payload: res.data,
                 });
+            })
+            .then(() => {
+                const socket = require("socket.io-client")(
+                    "http://localhost:5000"
+                );
+                socket.emit("dislike", user, post);
             });
     }
 };
@@ -303,7 +309,13 @@ export const follow = (id) => (dispatch) => {
                     type: FOLLOW,
                     payload: res.data,
                 })
-            );
+            )
+            .then(() => {
+                const socket = require("socket.io-client")(
+                    "http://localhost:5000"
+                );
+                socket.emit("follow", id);
+            });
     }
 };
 
@@ -370,6 +382,12 @@ export const comment = (comment) => (dispatch) => {
                     type: COMMENT,
                     payload: res.data,
                 });
+            })
+            .then(() => {
+                const socket = require("socket.io-client")(
+                    "http://localhost:5000"
+                );
+                socket.emit("comment", comment);
             });
     }
 };

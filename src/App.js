@@ -36,7 +36,7 @@ const App = (props) => {
                     <PrivateRoute path="/search" component={Search} />
                     <PrivateRoute path="/user/:id" component={AnotherUser} />
                     <PrivateRoute path="/post/:id" component={AnotherPost} />
-                    <PrivateRoute path="/post" component={Post} />
+                    <PrivateRoute path="/postSomething" component={Post} />
                     <PrivateRoute
                         path="/notifications"
                         component={Notifications}

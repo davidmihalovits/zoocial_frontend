@@ -76,6 +76,8 @@ const AnotherUser = (props) => {
                                 onClick={() =>
                                     props.follow({
                                         id: user.anotherUser._id,
+                                        anotherUser: user.anotherUser,
+                                        user: user.user,
                                     })
                                 }
                                 className="follow-true"
@@ -89,6 +91,8 @@ const AnotherUser = (props) => {
                                 onClick={() =>
                                     props.follow({
                                         id: user.anotherUser._id,
+                                        anotherUser: user.anotherUser,
+                                        user: user.user,
                                     })
                                 }
                                 className="follow-false"
@@ -183,9 +187,17 @@ const AnotherUser = (props) => {
                                         <div className="post-bottom-buttons">
                                             <Button
                                                 onClick={() =>
-                                                    props.like({
-                                                        id: a._id,
-                                                    })
+                                                    props.like(
+                                                        {
+                                                            id: a._id,
+                                                        },
+                                                        {
+                                                            user: user.user,
+                                                        },
+                                                        {
+                                                            post: a,
+                                                        }
+                                                    )
                                                 }
                                                 className={
                                                     a.likedBy.includes(
@@ -205,9 +217,17 @@ const AnotherUser = (props) => {
                                             </Button>
                                             <Button
                                                 onClick={() =>
-                                                    props.dislike({
-                                                        id: a._id,
-                                                    })
+                                                    props.dislike(
+                                                        {
+                                                            id: a._id,
+                                                        },
+                                                        {
+                                                            user: user.user,
+                                                        },
+                                                        {
+                                                            post: a,
+                                                        }
+                                                    )
                                                 }
                                                 className={
                                                     a.dislikedBy.includes(

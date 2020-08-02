@@ -84,13 +84,13 @@ const Feed = (props) => {
                                                         props.like(
                                                             {
                                                                 id: a._id,
-                                                            }
-                                                            /*{
+                                                            },
+                                                            {
                                                                 user: user.user,
                                                             },
                                                             {
                                                                 post: a,
-                                                            }*/
+                                                            }
                                                         )
                                                     }
                                                     className={
@@ -111,9 +111,17 @@ const Feed = (props) => {
                                                 </Button>
                                                 <Button
                                                     onClick={() =>
-                                                        props.dislike({
-                                                            id: a._id,
-                                                        })
+                                                        props.dislike(
+                                                            {
+                                                                id: a._id,
+                                                            },
+                                                            {
+                                                                user: user.user,
+                                                            },
+                                                            {
+                                                                post: a,
+                                                            }
+                                                        )
                                                     }
                                                     className={
                                                         a.dislikedBy.includes(

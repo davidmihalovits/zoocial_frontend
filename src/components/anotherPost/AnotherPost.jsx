@@ -41,6 +41,7 @@ const AnotherPost = (props) => {
         await props.comment({
             comment: comment,
             id: props.match.params.id,
+            user: user.post,
         });
 
         setModal(false);
@@ -103,9 +104,17 @@ const AnotherPost = (props) => {
                             <div className="buttons-flex">
                                 <Button
                                     onClick={() =>
-                                        props.like({
-                                            id: user.post._id,
-                                        })
+                                        props.like(
+                                            {
+                                                id: user.post._id,
+                                            },
+                                            {
+                                                user: user.user,
+                                            },
+                                            {
+                                                post: user.post,
+                                            }
+                                        )
                                     }
                                     className={
                                         user.post.likedBy &&
@@ -126,9 +135,17 @@ const AnotherPost = (props) => {
                                 </Button>
                                 <Button
                                     onClick={() =>
-                                        props.dislike({
-                                            id: user.post._id,
-                                        })
+                                        props.dislike(
+                                            {
+                                                id: user.post._id,
+                                            },
+                                            {
+                                                user: user.user,
+                                            },
+                                            {
+                                                post: user.post,
+                                            }
+                                        )
                                     }
                                     className={
                                         user.post.dislikedBy &&

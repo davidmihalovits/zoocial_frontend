@@ -25,6 +25,10 @@ const Search = (props) => {
                 "Loading..."
             ) : (
                 <>
+                    {user.search.users &&
+                        users.length === 0 &&
+                        user.search.posts &&
+                        posts.length === 0 && <p>Nothing here.</p>}
                     {user.search.users && users.length > 0 && (
                         <p className="search-users">Users:</p>
                     )}

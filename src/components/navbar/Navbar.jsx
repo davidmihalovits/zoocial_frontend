@@ -14,13 +14,7 @@ import noImg from "../../assets/noImg.png";
 import { Link, withRouter, NavLink } from "react-router-dom";
 import { connect, useSelector } from "react-redux";
 import { searchAll, getNotifications } from "../../redux/actions/actions";
-
-//const socket = require("socket.io-client")("http://localhost:5000");
-//socket.emit("user", user.user);
-/*socket.emit("data", user.user);
-    socket.on("notification", () => {
-        console.log("new notification yo");
-});*/
+const socket = require("socket.io-client")("http://localhost:5000");
 
 const Navbar = (props) => {
     const [search, setSearch] = useState("");
@@ -45,6 +39,12 @@ const Navbar = (props) => {
     };
 
     const abc = user.notifications.map((a) => a.read);
+
+    socket.emit("user", user.user);
+
+    socket
+        .off("notification")
+        .on("notification", () => props.getNotifications());
 
     return (
         <div className="navbar">
@@ -111,7 +111,7 @@ const Navbar = (props) => {
                             </div>
                         </Button>
                     </NavLink>
-                    <NavLink to="/post">
+                    <NavLink to="/postSomething">
                         <Button>
                             <div>
                                 <FontAwesomeIcon

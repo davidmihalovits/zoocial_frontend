@@ -14,8 +14,8 @@ const Notifications = (props) => {
     const user = useSelector((state) => state.userReducer);
 
     useEffect(() => {
-        props.getNotifications();
         props.readNotification();
+        window.scrollTo(0, 0);
     }, []);
 
     dayjs.extend(relativeTime);
@@ -26,7 +26,13 @@ const Notifications = (props) => {
                 .map((a, key) => {
                     return (
                         <div className="notification" key={key}>
-                            <Link to={`/post/${a.post}`}>
+                            <Link
+                                to={
+                                    a.notification.includes("started following")
+                                        ? `/user/${a.sender._id}`
+                                        : `/post/${a.post}`
+                                }
+                            >
                                 <Button>
                                     <div className="notification-flex">
                                         <img src={a.sender.image} alt="" />
