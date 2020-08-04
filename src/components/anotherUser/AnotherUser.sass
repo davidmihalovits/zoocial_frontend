@@ -61,9 +61,6 @@
             font-size: 20px
             font-weight: bold
 
-        div 
-            display: flex
-
         img
             width: 34px
             height: 34px
@@ -107,3 +104,36 @@
 
                 .disliked
                     color: $primary-color
+
+@media only screen and (min-width: 768px) 
+    .another-user
+        width: 600px
+
+        hr 
+            margin: 60px 0
+
+        .wide-profile-flex
+            display: flex
+
+            .wide-profile-left
+                flex: 1
+
+            .wide-profile-right
+                flex: 1
+
+                .user-details
+                    margin: 0
+
+        .following-followers-flex
+            display: flex
+            margin-top: 40px
+
+            .following-followers
+                flex: 1
+
+        .posts
+            width: 350px
+            margin: 0 auto
+
+            .another-user-post
+                margin-top: 50px

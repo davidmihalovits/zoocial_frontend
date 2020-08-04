@@ -41,112 +41,129 @@ const AnotherUser = (props) => {
             {user.loading ? (
                 <FontAwesomeIcon className="spinner" icon={faSpinner} spin />
             ) : (
-                <>
-                    <h1>{user.anotherUser.username}</h1>
-                    {user.anotherUser.image ? (
-                        <img src={user.anotherUser.image} alt="profile pic" />
-                    ) : (
-                        <img src={noImg} alt="no profile pic" />
-                    )}
-                    <p className="bio">
-                        {user.anotherUser.bio ? user.anotherUser.bio : "..."}
-                    </p>
-                    <div className="user-details">
-                        <p>{user.anotherUser.age}</p>
-                        <p>{user.anotherUser.gender}</p>
-                        <p>{user.anotherUser.location}</p>
-                        <p>
-                            <a
-                                href={user.anotherUser.website}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                {user.anotherUser.website}
-                            </a>
-                        </p>
-                        <p>
-                            Member for{" "}
-                            {dayjs(user.anotherUser.createdAt).fromNow(true)}
-                        </p>
-                    </div>
-
-                    {user.anotherUser.followers &&
-                        anotherUserFollowers.includes(user.user._id) && (
-                            <Button
-                                onClick={() =>
-                                    props.follow({
-                                        id: user.anotherUser._id,
-                                        anotherUser: user.anotherUser,
-                                        user: user.user,
-                                    })
-                                }
-                                className="follow-true"
-                            >
-                                Following
-                            </Button>
-                        )}
-                    {user.anotherUser.followers &&
-                        !anotherUserFollowers.includes(user.user._id) && (
-                            <Button
-                                onClick={() =>
-                                    props.follow({
-                                        id: user.anotherUser._id,
-                                        anotherUser: user.anotherUser,
-                                        user: user.user,
-                                    })
-                                }
-                                className="follow-false"
-                            >
-                                Follow
-                            </Button>
-                        )}
-
-                    <div className="following-followers">
-                        <p>Following:</p>
-                        <div>
-                            {user.anotherUser.following &&
-                                user.anotherUser.following.map((a, key) => {
-                                    return (
-                                        <Link
-                                            to={
-                                                a._id === user.user._id
-                                                    ? `/profile`
-                                                    : `/user/${a._id}`
-                                            }
-                                            key={key}
-                                        >
-                                            {a.image ? (
-                                                <img src={a.image} alt="" />
-                                            ) : (
-                                                <img src={noImg} alt="" />
-                                            )}
-                                        </Link>
-                                    );
-                                })}
+                <div>
+                    <div className="wide-profile-flex">
+                        <div className="wide-profile-left">
+                            <h1>{user.anotherUser.username}</h1>
+                            {user.anotherUser.image ? (
+                                <img
+                                    src={user.anotherUser.image}
+                                    alt="profile pic"
+                                />
+                            ) : (
+                                <img src={noImg} alt="no profile pic" />
+                            )}
+                            <p className="bio">
+                                {user.anotherUser.bio
+                                    ? user.anotherUser.bio
+                                    : "..."}
+                            </p>
+                        </div>
+                        <div className="wide-profile-right">
+                            <div className="user-details">
+                                <p>{user.anotherUser.age}</p>
+                                <p>{user.anotherUser.gender}</p>
+                                <p>{user.anotherUser.location}</p>
+                                <p>
+                                    <a
+                                        href={user.anotherUser.website}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        {user.anotherUser.website}
+                                    </a>
+                                </p>
+                                <p>
+                                    Member for{" "}
+                                    {dayjs(user.anotherUser.createdAt).fromNow(
+                                        true
+                                    )}
+                                </p>
+                            </div>
+                            {user.anotherUser.followers &&
+                                anotherUserFollowers.includes(
+                                    user.user._id
+                                ) && (
+                                    <Button
+                                        onClick={() =>
+                                            props.follow({
+                                                id: user.anotherUser._id,
+                                                anotherUser: user.anotherUser,
+                                                user: user.user,
+                                            })
+                                        }
+                                        className="follow-true"
+                                    >
+                                        Following
+                                    </Button>
+                                )}
+                            {user.anotherUser.followers &&
+                                !anotherUserFollowers.includes(
+                                    user.user._id
+                                ) && (
+                                    <Button
+                                        onClick={() =>
+                                            props.follow({
+                                                id: user.anotherUser._id,
+                                                anotherUser: user.anotherUser,
+                                                user: user.user,
+                                            })
+                                        }
+                                        className="follow-false"
+                                    >
+                                        Follow
+                                    </Button>
+                                )}
                         </div>
                     </div>
-                    <div className="following-followers">
-                        <p>Followers:</p>
-                        <div>
-                            {user.anotherUser.followers &&
-                                user.anotherUser.followers.map((a, key) => {
-                                    return (
-                                        <Link
-                                            to={
-                                                a._id === user.user._id
-                                                    ? `/profile`
-                                                    : `/user/${a._id}`
-                                            }
-                                            key={key}
-                                        >
-                                            {a.image ? (
-                                                <img src={a.image} alt="" />
-                                            ) : (
-                                                <img src={noImg} alt="" />
-                                            )}
-                                        </Link>
-                                    );
-                                })}
+                    <div className="following-followers-flex">
+                        <div className="following-followers">
+                            <p>Following:</p>
+                            <div>
+                                {user.anotherUser.following &&
+                                    user.anotherUser.following.map((a, key) => {
+                                        return (
+                                            <Link
+                                                to={
+                                                    a._id === user.user._id
+                                                        ? `/profile`
+                                                        : `/user/${a._id}`
+                                                }
+                                                key={key}
+                                            >
+                                                {a.image ? (
+                                                    <img src={a.image} alt="" />
+                                                ) : (
+                                                    <img src={noImg} alt="" />
+                                                )}
+                                            </Link>
+                                        );
+                                    })}
+                            </div>
+                        </div>
+                        <div className="following-followers">
+                            <p>Followers:</p>
+                            <div>
+                                {user.anotherUser.followers &&
+                                    user.anotherUser.followers.map((a, key) => {
+                                        return (
+                                            <Link
+                                                to={
+                                                    a._id === user.user._id
+                                                        ? `/profile`
+                                                        : `/user/${a._id}`
+                                                }
+                                                key={key}
+                                            >
+                                                {a.image ? (
+                                                    <img src={a.image} alt="" />
+                                                ) : (
+                                                    <img src={noImg} alt="" />
+                                                )}
+                                            </Link>
+                                        );
+                                    })}
+                            </div>
                         </div>
                     </div>
                     <hr />
@@ -265,7 +282,7 @@ const AnotherUser = (props) => {
                             })
                             .reverse()}
                     </div>
-                </>
+                </div>
             )}
         </div>
     );

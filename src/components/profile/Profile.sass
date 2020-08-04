@@ -16,6 +16,7 @@
             object-fit: cover
             border-radius: 50%
             margin-top: 20px
+            cursor: pointer
 
         .loading-image
             opacity: 0.1
@@ -107,9 +108,6 @@
                 font-size: 20px
                 font-weight: bold
 
-            div 
-                display: flex
-
             img
                 width: 34px
                 height: 34px
@@ -161,6 +159,50 @@
 
                     .disliked
                         color: $primary-color
+
+@media only screen and (min-width: 768px) 
+    .profile
+        width: 600px
+
+        .user
+            hr 
+                margin: 60px 0
+
+            .user-details
+                margin: 0 
+                
+            .wide-profile-flex
+                display: flex
+
+                .wide-profile-left
+                    flex: 1
+
+                .wide-profile-right
+                    flex: 1
+
+            .following-followers-flex
+                display: flex
+                margin-top: 40px
+
+                .following-followers
+                    flex: 1
+
+            .posts
+                width: 350px
+                margin: 0 auto
+
+                .post
+                    margin-top: 50px
+
+                    .post-flex
+                        .delete
+                            position: absolute
+                            margin-left: 335px
+                            color: red
+                            opacity: 0.2
+                            cursor: pointer
+        
+
 
                     
 

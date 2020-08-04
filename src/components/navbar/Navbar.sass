@@ -1,71 +1,82 @@
 @import '../../App'
 
-.navbar  
+.navbar     
     .top
-        display: flex
-        align-items: center
-        position: fixed
-        background-color: white
-        width: 100%
-        top: 0
-        padding: 10px
-        z-index: 1000
         border-bottom: 1px solid #ebebeb
+        position: fixed
+        top: 0
+        width: 100%
+        z-index: 1000
 
-        .top-right
-            margin-left: auto
-            position: relative
+        .top-inner
             display: flex
             align-items: center
+            background-color: white
+            padding: 10px
+            
+            .top-middle
+                display: none
 
-            .login-button
-                background-color: $primary-color
-                color: white
-                border: none
-                border-radius: 0px
-                text-transform: unset
-                padding: 5px 20px
-                display: block
+            .top-right
+                margin-left: auto
+                position: relative
+                display: flex
+                align-items: center
 
-                &:hover
+                .notifications-modal
+                    display: none
+
+                .login-button
                     background-color: $primary-color
+                    color: white
+                    border: none
+                    border-radius: 0px
+                    text-transform: unset
+                    padding: 5px 20px
+                    display: block
 
-            .bell
-                font-size: 20px
-                cursor: pointer
-                color: black
+                    &:hover
+                        background-color: $primary-color
 
-            .badge
-                position: absolute
-                right: 0
-                margin-right: 8px
-                margin-bottom: 22px
+                .bell
+                    font-size: 20px
+                    cursor: pointer
+                    color: black
+
+                .bell-modal
+                    display: none
+
+                .badge
+                    position: absolute
+                    right: 0
+                    margin-right: 8px
+                    margin-bottom: 22px
+                    color: $primary-color
+                    font-size: 9px
+
+                .search-input
+                    outline: none
+                    font-size: 14px
+                    border: none
+                    background-color: #f7f7f7a8
+                    border-radius: 22px
+                    padding: 8px
+                    margin-right: 15px
+                    width: 150px
+
+                .search-button
+                    position: absolute
+                    left: 0
+                    margin-left: 125px
+                    color: $primary-color
+                    font-size: 14px
+                    cursor: pointer
+        
+            .title
                 color: $primary-color
-                font-size: 9px
-
-            .search-input
-                outline: none
-                font-size: 14px
-                border: none
-                background-color: #f7f7f7a8
-                border-radius: 22px
-                padding: 8px
-                margin-right: 15px
-                width: 150px
-
-            .search-button
-                position: absolute
-                left: 0
-                margin-left: 125px
-                color: $primary-color
-                font-size: 14px
-                cursor: pointer
-    
-        .title
-            color: $primary-color
-            font-family: 'Kaushan Script'
-            font-size: 35px
-            font-weight: bold
+                font-family: 'Kaushan Script'
+                font-size: 35px
+                font-weight: bold
 
     .bottom
         position: fixed
@@ -100,6 +111,105 @@
 
                 img 
                     border: 1.5px solid $primary-color
+
+@media only screen and (min-width: 768px) 
+    .navbar
+        .bottom
+            display: none
+
+        .top
+            .top-inner
+                display: flex
+                justify-content: space-between
+                align-items: center
+                padding: 10px 20px
+
+                .top-middle
+                    display: flex
+                    align-items: center
+
+                    a
+                        width: 100%
+                        
+                        button
+                            width: 100%
+                            font-size: 12px
+                            text-transform: unset
+                            padding: 0px
+
+                    img
+                        width: 24.5px
+                        height: 24.5px
+                        object-fit: cover
+                        border-radius: 50%
+                        margin-bottom: -3.5px
+
+                    .active 
+                        button
+                            color: $primary-color
+
+                            img 
+                                border: 1.5px solid $primary-color
+
+                .top-right
+                    margin-left: 0
+
+                    .bell
+                        display: none
+
+                    .bell-modal
+                        display: initial
+                        font-size: 20px
+                        cursor: pointer
+                        color: black
+
+                    .notifications-modal
+                        display: initial
+                        position: absolute
+                        right: 0
+                        top: 0
+                        margin: 70px 10px 0 0
+                        height: 500px
+                        width: 300px
+                        padding: 15px
+                        background-color: white
+                        z-index: 1000
+                        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4)
+                        overflow: auto
+
+                        .notification
+                            margin-bottom: 30px
+                            
+                            button
+                                text-transform: unset
+                                width: 100%
+
+                                .notification-flex
+                                    display: flex
+                                    align-items: center
+                                    width: 280px
+
+                                    img
+                                        width: 45px
+                                        height: 45px
+                                        object-fit: cover
+                                        border-radius: 50%
+                                        margin-right: 10px
+
+                                    .notification-date
+                                        display: flex
+                                        flex-direction: column
+                                        align-items: flex-start
+                                        font-size: 12px
+            
+@media only screen and (min-width: 1200px) 
+    .navbar
+        .top
+            .top-inner
+                width: 1200px
+                margin: 0 auto
+           
+
 
 
 

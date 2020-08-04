@@ -102,7 +102,6 @@ export default function (state = initialState, action) {
             };
         case LOGOUT:
             return {
-                ...state,
                 user: {},
                 authenticated: false,
                 loading: false,

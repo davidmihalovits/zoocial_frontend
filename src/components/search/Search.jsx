@@ -29,64 +29,31 @@ const Search = (props) => {
                         users.length === 0 &&
                         user.search.posts &&
                         posts.length === 0 && <p>Nothing here.</p>}
-                    {user.search.users && users.length > 0 && (
-                        <p className="search-users">Users:</p>
-                    )}
-                    {user.search.users &&
-                        user.search.users.map((a, key) => {
-                            return (
-                                <Link
-                                    to={
-                                        a._id === user.user._id
-                                            ? `/profile`
-                                            : `/user/${a._id}`
-                                    }
-                                    key={key}
-                                >
-                                    <div className="search-card-users">
-                                        {a.image ? (
-                                            <img src={a.image} alt="" />
-                                        ) : (
-                                            <img src={noImg} alt="" />
-                                        )}
-                                        <div className="search-card-flex">
-                                            <p className="search-username">
-                                                {a.username}
-                                            </p>
-                                            <p
-                                                style={{
-                                                    color: "#d1d1d1",
-                                                    fontSize: "12px",
-                                                    marginTop: "5px",
-                                                }}
-                                            >
-                                                {dayjs(a.createdAt).fromNow(
-                                                    true
-                                                )}{" "}
-                                                ago
-                                            </p>
-                                        </div>
-                                    </div>
-                                </Link>
-                            );
-                        })}
-
-                    {user.search.posts && posts.length > 0 && (
-                        <p className="search-posts">Posts:</p>
-                    )}
-                    {user.search.posts &&
-                        user.search.posts.map((a, key) => {
-                            return (
-                                <Link to={`/post/${a._id}`} key={key}>
-                                    <div className="search-card-posts">
-                                        <div className="search-card-flex-all">
-                                            {a.by.image ? (
-                                                <img src={a.by.image} alt="" />
+                    <div className="search-users-flex">
+                        {user.search.users && users.length > 0 && (
+                            <p className="search-users">Users:</p>
+                        )}
+                        {user.search.users &&
+                            user.search.users.map((a, key) => {
+                                return (
+                                    <Link
+                                        to={
+                                            a._id === user.user._id
+                                                ? `/profile`
+                                                : `/user/${a._id}`
+                                        }
+                                        key={key}
+                                    >
+                                        <div className="search-card-users">
+                                            {a.image ? (
+                                                <img src={a.image} alt="" />
                                             ) : (
                                                 <img src={noImg} alt="" />
                                             )}
                                             <div className="search-card-flex">
-                                                <p>{a.by.username}</p>
+                                                <p className="search-username">
+                                                    {a.username}
+                                                </p>
                                                 <p
                                                     style={{
                                                         color: "#d1d1d1",
@@ -101,11 +68,52 @@ const Search = (props) => {
                                                 </p>
                                             </div>
                                         </div>
-                                        <p className="search-post">{a.post}</p>
-                                    </div>
-                                </Link>
-                            );
-                        })}
+                                    </Link>
+                                );
+                            })}
+                    </div>
+                    <div className="search-posts-flex">
+                        {user.search.posts && posts.length > 0 && (
+                            <p className="search-posts">Posts:</p>
+                        )}
+                        {user.search.posts &&
+                            user.search.posts.map((a, key) => {
+                                return (
+                                    <Link to={`/post/${a._id}`} key={key}>
+                                        <div className="search-card-posts">
+                                            <div className="search-card-flex-all">
+                                                {a.by.image ? (
+                                                    <img
+                                                        src={a.by.image}
+                                                        alt=""
+                                                    />
+                                                ) : (
+                                                    <img src={noImg} alt="" />
+                                                )}
+                                                <div className="search-card-flex">
+                                                    <p>{a.by.username}</p>
+                                                    <p
+                                                        style={{
+                                                            color: "#d1d1d1",
+                                                            fontSize: "12px",
+                                                            marginTop: "5px",
+                                                        }}
+                                                    >
+                                                        {dayjs(
+                                                            a.createdAt
+                                                        ).fromNow(true)}{" "}
+                                                        ago
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <p className="search-post">
+                                                {a.post}
+                                            </p>
+                                        </div>
+                                    </Link>
+                                );
+                            })}
+                    </div>
                 </>
             )}
         </div>

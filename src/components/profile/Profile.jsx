@@ -44,7 +44,9 @@ const Profile = (props) => {
         props.getMyPosts();
         props.profile();
         window.scrollTo(0, 0);
-    }, []);
+
+        return;
+    }, [props]);
 
     const update = (e) => {
         e.preventDefault();
@@ -98,79 +100,92 @@ const Profile = (props) => {
     return (
         <div className="profile">
             <div className="user">
-                <h1>{user.user.username}</h1>
-                {user.user.image ? (
-                    <div>
-                        <input
-                            style={{ display: "none" }}
-                            name="image"
-                            id="image"
-                            type="file"
-                            accept=".jpg, .png, .jpeg"
-                            value={""}
-                            onChange={imageOnChange}
-                        />
-                        <label htmlFor="image">
-                            <img
-                                src={user.user.image}
-                                alt="profile pic"
-                                className={loading ? "loading-image" : null}
-                            />
-                        </label>
+                <div className="wide-profile-flex">
+                    <div className="wide-profile-left">
+                        <h1>{user.user.username}</h1>
+                        {user.user.image ? (
+                            <div>
+                                <input
+                                    style={{ display: "none" }}
+                                    name="image"
+                                    id="image"
+                                    type="file"
+                                    accept=".jpg, .png, .jpeg"
+                                    value={""}
+                                    onChange={imageOnChange}
+                                />
+                                <label htmlFor="image">
+                                    <img
+                                        src={user.user.image}
+                                        alt="profile pic"
+                                        className={
+                                            loading ? "loading-image" : null
+                                        }
+                                    />
+                                </label>
+                            </div>
+                        ) : (
+                            <div>
+                                <input
+                                    style={{ display: "none" }}
+                                    name="image"
+                                    id="image"
+                                    type="file"
+                                    accept=".jpg, .png, .jpeg"
+                                    value={""}
+                                    onChange={imageOnChange}
+                                />
+                                <label htmlFor="image">
+                                    <img
+                                        src={noImg}
+                                        alt="no profile pic"
+                                        className={
+                                            loading ? "loading-image" : null
+                                        }
+                                    />
+                                </label>
+                            </div>
+                        )}
+                        <p className="bio">{user.user.bio}</p>
                     </div>
-                ) : (
-                    <div>
-                        <input
-                            style={{ display: "none" }}
-                            name="image"
-                            id="image"
-                            type="file"
-                            accept=".jpg, .png, .jpeg"
-                            value={""}
-                            onChange={imageOnChange}
-                        />
-                        <label htmlFor="image">
-                            <img
-                                src={noImg}
-                                alt="no profile pic"
-                                className={loading ? "loading-image" : null}
-                            />
-                        </label>
-                    </div>
-                )}
-                <p className="bio">{user.user.bio}</p>
-                <div className="user-details">
-                    <p>{user.user.age}</p>
-                    <p>{user.user.gender}</p>
-                    <p>{user.user.location}</p>
-                    <p>
-                        <a
-                            href={user.user.website}
-                            target="_blank"
-                            rel="noopener noreferrer"
+                    <div className="wide-profile-right">
+                        <div className="user-details">
+                            <p>{user.user.age}</p>
+                            <p>{user.user.gender}</p>
+                            <p>{user.user.location}</p>
+                            <p>
+                                <a
+                                    href={user.user.website}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    {user.user.website}
+                                </a>
+                            </p>
+                            <p>
+                                Member for{" "}
+                                {dayjs(user.user.createdAt).fromNow(true)}
+                            </p>
+                        </div>
+                        <Button
+                            className="edit-logout-button"
+                            onClick={() => {
+                                setModal(!modal);
+                                setUsername(user.user.username);
+                                setAge(user.user.age);
+                                setGender(user.user.gender);
+                                setBio(user.user.bio);
+                                setLocation(user.user.location);
+                                setWebsite(user.user.website);
+                            }}
                         >
-                            {user.user.website}
-                        </a>
-                    </p>
-                    <p>Member for {dayjs(user.user.createdAt).fromNow(true)}</p>
+                            Edit Profile
+                        </Button>
+                        <Button className="edit-logout-button" onClick={logout}>
+                            Logout
+                        </Button>
+                    </div>
                 </div>
-                <Button
-                    className="edit-logout-button"
-                    onClick={() => {
-                        setModal(!modal);
-                        setUsername(user.user.username);
-                        setAge(user.user.age);
-                        setGender(user.user.gender);
-                        setBio(user.user.bio);
-                        setLocation(user.user.location);
-                        setWebsite(user.user.website);
-                    }}
-                >
-                    Edit Profile
-                </Button>
-                <Button className="edit-logout-button" onClick={logout}>
-                    Logout
-                </Button>
                 {modal && (
                     <div className="modal">
                         <FontAwesomeIcon
@@ -229,39 +244,40 @@ const Profile = (props) => {
                         <Button onClick={update}>Update</Button>
                     </div>
                 )}
-
-                <div className="following-followers">
-                    <p>Following:</p>
-                    <div>
-                        {user.user.following &&
-                            user.user.following.map((a, key) => {
-                                return (
-                                    <Link to={`/user/${a._id}`} key={key}>
-                                        {a.image ? (
-                                            <img src={a.image} alt="" />
-                                        ) : (
-                                            <img src={noImg} alt="" />
-                                        )}
-                                    </Link>
-                                );
-                            })}
+                <div className="following-followers-flex">
+                    <div className="following-followers">
+                        <p>Following:</p>
+                        <div>
+                            {user.user.following &&
+                                user.user.following.map((a, key) => {
+                                    return (
+                                        <Link to={`/user/${a._id}`} key={key}>
+                                            {a.image ? (
+                                                <img src={a.image} alt="" />
+                                            ) : (
+                                                <img src={noImg} alt="" />
+                                            )}
+                                        </Link>
+                                    );
+                                })}
+                        </div>
                     </div>
-                </div>
-                <div className="following-followers">
-                    <p>Followers:</p>
-                    <div>
-                        {user.user.followers &&
-                            user.user.followers.map((a, key) => {
-                                return (
-                                    <Link to={`/user/${a._id}`} key={key}>
-                                        {a.image ? (
-                                            <img src={a.image} alt="" />
-                                        ) : (
-                                            <img src={noImg} alt="" />
-                                        )}
-                                    </Link>
-                                );
-                            })}
+                    <div className="following-followers">
+                        <p>Followers:</p>
+                        <div>
+                            {user.user.followers &&
+                                user.user.followers.map((a, key) => {
+                                    return (
+                                        <Link to={`/user/${a._id}`} key={key}>
+                                            {a.image ? (
+                                                <img src={a.image} alt="" />
+                                            ) : (
+                                                <img src={noImg} alt="" />
+                                            )}
+                                        </Link>
+                                    );
+                                })}
+                        </div>
                     </div>
                 </div>
                 <hr />

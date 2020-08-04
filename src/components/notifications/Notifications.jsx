@@ -9,6 +9,7 @@ import { connect, useSelector } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import noImg from "../../assets/noImg.png";
 
 const Notifications = (props) => {
     const user = useSelector((state) => state.userReducer);
@@ -16,7 +17,7 @@ const Notifications = (props) => {
     useEffect(() => {
         props.readNotification();
         window.scrollTo(0, 0);
-    }, []);
+    }, [props]);
 
     dayjs.extend(relativeTime);
 
@@ -35,7 +36,11 @@ const Notifications = (props) => {
                             >
                                 <Button>
                                     <div className="notification-flex">
-                                        <img src={a.sender.image} alt="" />
+                                        {a.sender.image ? (
+                                            <img src={a.sender.image} alt="" />
+                                        ) : (
+                                            <img src={noImg} alt="" />
+                                        )}
                                         <div className="notification-date">
                                             <p>{a.notification}</p>
                                             <p
