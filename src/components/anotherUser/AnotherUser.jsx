@@ -36,6 +36,20 @@ const AnotherUser = (props) => {
         user.anotherUser.followers &&
         user.anotherUser.followers.map((a) => a._id);
 
+    if (user.anotherUser.status === "Invalid user.") {
+        return (
+            <p
+                style={{
+                    width: "280px",
+                    margin: "90px auto",
+                    textAlign: "center",
+                }}
+            >
+                User not found.
+            </p>
+        );
+    }
+
     return (
         <div className="another-user">
             {user.loading ? (

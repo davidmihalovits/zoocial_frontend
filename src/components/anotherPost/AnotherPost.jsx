@@ -50,6 +50,34 @@ const AnotherPost = (props) => {
 
     const enabled = comment.length > 0 && comment.length < 50;
 
+    if (user.post.status === "Invalid post.") {
+        return (
+            <p
+                style={{
+                    width: "280px",
+                    margin: "90px auto",
+                    textAlign: "center",
+                }}
+            >
+                Post not found.
+            </p>
+        );
+    }
+
+    if (!user.post) {
+        return (
+            <p
+                style={{
+                    width: "280px",
+                    margin: "90px auto",
+                    textAlign: "center",
+                }}
+            >
+                Post not found. It might have been deleted by the user.
+            </p>
+        );
+    }
+
     return (
         <div>
             {user.loading ? (
