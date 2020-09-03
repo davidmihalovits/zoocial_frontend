@@ -47,7 +47,7 @@ export const profile = () => (dispatch) => {
 
     if (token) {
         axios
-            .get("http://localhost:5000/profile", {
+            .get("https://zoocial-backend.herokuapp.com/profile", {
                 headers: { "X-Auth-Token": token },
             })
             .then((res) =>
@@ -64,21 +64,23 @@ export const login = (login) => (dispatch) => {
         type: LOGIN_REQUEST,
     });
 
-    axios.post("http://localhost:5000/login", login).then((res) => {
-        if (res.data.token) {
-            localStorage.setItem("token", res.data.token);
-            dispatch({
-                type: LOGIN_SUCCESS,
-                payload: res.data,
-            });
-            dispatch(getNotifications());
-        } else if (res.data.status === "Invalid credentials.") {
-            dispatch({
-                type: LOGIN_FAIL,
-                payload: res.data.status,
-            });
-        }
-    });
+    axios
+        .post("https://zoocial-backend.herokuapp.com/login", login)
+        .then((res) => {
+            if (res.data.token) {
+                localStorage.setItem("token", res.data.token);
+                dispatch({
+                    type: LOGIN_SUCCESS,
+                    payload: res.data,
+                });
+                dispatch(getNotifications());
+            } else if (res.data.status === "Invalid credentials.") {
+                dispatch({
+                    type: LOGIN_FAIL,
+                    payload: res.data.status,
+                });
+            }
+        });
 };
 
 export const signup = (signup) => (dispatch) => {
@@ -86,44 +88,46 @@ export const signup = (signup) => (dispatch) => {
         type: SIGNUP_REQUEST,
     });
 
-    axios.post("http://localhost:5000/signup", signup).then((res) => {
-        if (res.data.token) {
-            localStorage.setItem("token", res.data.token);
-            dispatch({
-                type: SIGNUP_SUCCESS,
-                payload: res.data,
-            });
-        } else if (
-            res.data.status === "Enter your username, max 12 characters."
-        ) {
-            dispatch({
-                type: SIGNUP_FAIL,
-                payload: res.data.status,
-            });
-        } else if (res.data.status === "Invalid email.") {
-            dispatch({
-                type: SIGNUP_FAIL,
-                payload: res.data.status,
-            });
-        } else if (
-            res.data.status === "Password must be at least 6 characters."
-        ) {
-            dispatch({
-                type: SIGNUP_FAIL,
-                payload: res.data.status,
-            });
-        } else if (res.data.status === "This email is already taken.") {
-            dispatch({
-                type: SIGNUP_FAIL,
-                payload: res.data.status,
-            });
-        } else if (res.data.status === "This username is already taken.") {
-            dispatch({
-                type: SIGNUP_FAIL,
-                payload: res.data.status,
-            });
-        }
-    });
+    axios
+        .post("https://zoocial-backend.herokuapp.com/signup", signup)
+        .then((res) => {
+            if (res.data.token) {
+                localStorage.setItem("token", res.data.token);
+                dispatch({
+                    type: SIGNUP_SUCCESS,
+                    payload: res.data,
+                });
+            } else if (
+                res.data.status === "Enter your username, max 12 characters."
+            ) {
+                dispatch({
+                    type: SIGNUP_FAIL,
+                    payload: res.data.status,
+                });
+            } else if (res.data.status === "Invalid email.") {
+                dispatch({
+                    type: SIGNUP_FAIL,
+                    payload: res.data.status,
+                });
+            } else if (
+                res.data.status === "Password must be at least 6 characters."
+            ) {
+                dispatch({
+                    type: SIGNUP_FAIL,
+                    payload: res.data.status,
+                });
+            } else if (res.data.status === "This email is already taken.") {
+                dispatch({
+                    type: SIGNUP_FAIL,
+                    payload: res.data.status,
+                });
+            } else if (res.data.status === "This username is already taken.") {
+                dispatch({
+                    type: SIGNUP_FAIL,
+                    payload: res.data.status,
+                });
+            }
+        });
 };
 
 export const logout = (history) => (dispatch) => {
@@ -139,9 +143,13 @@ export const like = (id) => (dispatch) => {
     const token = localStorage.getItem("token");
     if (token) {
         axios
-            .put(`http://localhost:5000/likePost/${id.id}`, id, {
-                headers: { "X-Auth-Token": token },
-            })
+            .put(
+                `https://zoocial-backend.herokuapp.com/likePost/${id.id}`,
+                id,
+                {
+                    headers: { "X-Auth-Token": token },
+                }
+            )
             .then((res) => {
                 dispatch({
                     type: LIKE,
@@ -150,7 +158,7 @@ export const like = (id) => (dispatch) => {
             })
             .then(() => {
                 const socket = require("socket.io-client")(
-                    "http://localhost:5000"
+                    "https://zoocial-backend.herokuapp.com"
                 );
                 socket.emit("like", id);
             });
@@ -161,9 +169,13 @@ export const dislike = (id) => (dispatch) => {
     const token = localStorage.getItem("token");
     if (token) {
         axios
-            .put(`http://localhost:5000/dislikePost/${id.id}`, id, {
-                headers: { "X-Auth-Token": token },
-            })
+            .put(
+                `https://zoocial-backend.herokuapp.com/dislikePost/${id.id}`,
+                id,
+                {
+                    headers: { "X-Auth-Token": token },
+                }
+            )
             .then((res) => {
                 dispatch({
                     type: DISLIKE,
@@ -172,7 +184,7 @@ export const dislike = (id) => (dispatch) => {
             })
             .then(() => {
                 const socket = require("socket.io-client")(
-                    "http://localhost:5000"
+                    "https://zoocial-backend.herokuapp.com"
                 );
                 socket.emit("dislike", id);
             });
@@ -187,7 +199,7 @@ export const postPost = (post, history) => (dispatch) => {
     const token = localStorage.getItem("token");
     if (token) {
         axios
-            .post("http://localhost:5000/postPost", post, {
+            .post("https://zoocial-backend.herokuapp.com/postPost", post, {
                 headers: { "X-Auth-Token": token },
             })
             .then((res) => {
@@ -204,9 +216,12 @@ export const deletePost = (id) => (dispatch) => {
     const token = localStorage.getItem("token");
     if (token) {
         axios
-            .delete(`http://localhost:5000/deletePost/${id.id}`, {
-                headers: { "X-Auth-Token": token },
-            })
+            .delete(
+                `https://zoocial-backend.herokuapp.com/deletePost/${id.id}`,
+                {
+                    headers: { "X-Auth-Token": token },
+                }
+            )
             .then((res) => {
                 dispatch({
                     type: DELETE_POST,
@@ -220,9 +235,13 @@ export const updateProfile = (updateProfile) => (dispatch) => {
     const token = localStorage.getItem("token");
     if (token) {
         axios
-            .put("http://localhost:5000/updateProfile", updateProfile, {
-                headers: { "X-Auth-Token": token },
-            })
+            .put(
+                "https://zoocial-backend.herokuapp.com/updateProfile",
+                updateProfile,
+                {
+                    headers: { "X-Auth-Token": token },
+                }
+            )
             .then((res) => {
                 dispatch({
                     type: UPDATE_PROFILE,
@@ -236,7 +255,7 @@ export const users = () => (dispatch) => {
     const token = localStorage.getItem("token");
     if (token) {
         axios
-            .get("http://localhost:5000/users", {
+            .get("https://zoocial-backend.herokuapp.com/users", {
                 headers: { "X-Auth-Token": token },
             })
             .then((res) =>
@@ -253,9 +272,12 @@ export const getAnotherUser = (id) => (dispatch) => {
 
     if (token) {
         axios
-            .get(`http://localhost:5000/getAnotherUser/user/${id.id}`, {
-                headers: { "X-Auth-Token": token },
-            })
+            .get(
+                `https://zoocial-backend.herokuapp.com/getAnotherUser/user/${id.id}`,
+                {
+                    headers: { "X-Auth-Token": token },
+                }
+            )
             .then((res) =>
                 dispatch({
                     type: GET_ANOTHER_USER,
@@ -270,7 +292,7 @@ export const getMyPosts = () => (dispatch) => {
 
     if (token) {
         axios
-            .get("http://localhost:5000/getMyPosts", {
+            .get("https://zoocial-backend.herokuapp.com/getMyPosts", {
                 headers: { "X-Auth-Token": token },
             })
             .then((res) =>
@@ -287,9 +309,12 @@ export const getAnotherUserPosts = (id) => (dispatch) => {
 
     if (token) {
         axios
-            .get(`http://localhost:5000/getAnotherUserPosts/${id.id}`, {
-                headers: { "X-Auth-Token": token },
-            })
+            .get(
+                `https://zoocial-backend.herokuapp.com/getAnotherUserPosts/${id.id}`,
+                {
+                    headers: { "X-Auth-Token": token },
+                }
+            )
             .then((res) =>
                 dispatch({
                     type: GET_ANOTHER_USER_POSTS,
@@ -304,7 +329,7 @@ export const follow = (id) => (dispatch) => {
 
     if (token) {
         axios
-            .put(`http://localhost:5000/follow/${id.id}`, id, {
+            .put(`https://zoocial-backend.herokuapp.com/follow/${id.id}`, id, {
                 headers: { "X-Auth-Token": token },
             })
             .then((res) =>
@@ -315,7 +340,7 @@ export const follow = (id) => (dispatch) => {
             )
             .then(() => {
                 const socket = require("socket.io-client")(
-                    "http://localhost:5000"
+                    "https://zoocial-backend.herokuapp.com"
                 );
                 socket.emit("follow", id);
             });
@@ -327,7 +352,7 @@ export const feed = () => (dispatch) => {
 
     if (token) {
         axios
-            .get("http://localhost:5000/feed", {
+            .get("https://zoocial-backend.herokuapp.com/feed", {
                 headers: { "X-Auth-Token": token },
             })
             .then((res) =>
@@ -344,9 +369,12 @@ export const getAnotherPost = (id) => (dispatch) => {
 
     if (token) {
         axios
-            .get(`http://localhost:5000/getAnotherPost/${id.id}`, {
-                headers: { "X-Auth-Token": token },
-            })
+            .get(
+                `https://zoocial-backend.herokuapp.com/getAnotherPost/${id.id}`,
+                {
+                    headers: { "X-Auth-Token": token },
+                }
+            )
             .then((res) =>
                 dispatch({
                     type: GET_ANOTHER_POST,
@@ -361,7 +389,7 @@ export const getComments = (id) => (dispatch) => {
 
     if (token) {
         axios
-            .get(`http://localhost:5000/getComments/${id.id}`, {
+            .get(`https://zoocial-backend.herokuapp.com/getComments/${id.id}`, {
                 headers: { "X-Auth-Token": token },
             })
             .then((res) =>
@@ -377,9 +405,13 @@ export const comment = (id, comment) => (dispatch) => {
     const token = localStorage.getItem("token");
     if (token) {
         axios
-            .post(`http://localhost:5000/comment/${id.id}`, comment, {
-                headers: { "X-Auth-Token": token },
-            })
+            .post(
+                `https://zoocial-backend.herokuapp.com/comment/${id.id}`,
+                comment,
+                {
+                    headers: { "X-Auth-Token": token },
+                }
+            )
             .then((res) => {
                 dispatch({
                     type: COMMENT,
@@ -388,7 +420,7 @@ export const comment = (id, comment) => (dispatch) => {
             })
             .then(() => {
                 const socket = require("socket.io-client")(
-                    "http://localhost:5000"
+                    "https://zoocial-backend.herokuapp.com"
                 );
                 socket.emit("comment", id);
             });
@@ -399,7 +431,7 @@ export const searchAll = (search, history) => (dispatch) => {
     const token = localStorage.getItem("token");
     if (token) {
         axios
-            .post("http://localhost:5000/search", search, {
+            .post("https://zoocial-backend.herokuapp.com/search", search, {
                 headers: { "X-Auth-Token": token },
             })
             .then((res) => {
@@ -424,7 +456,7 @@ export const getNotifications = () => (dispatch) => {
 
     if (token) {
         axios
-            .get("http://localhost:5000/getNotifications", {
+            .get("https://zoocial-backend.herokuapp.com/getNotifications", {
                 headers: { "X-Auth-Token": token },
             })
             .then((res) =>
@@ -442,7 +474,7 @@ export const readNotification = () => (dispatch) => {
     if (token) {
         axios
             .put(
-                "http://localhost:5000/readNotification",
+                "https://zoocial-backend.herokuapp.com/readNotification",
                 {},
                 {
                     headers: { "X-Auth-Token": token },
