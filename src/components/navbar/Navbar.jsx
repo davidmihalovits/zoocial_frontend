@@ -20,7 +20,9 @@ import {
     getNotifications,
     readNotification,
 } from "../../redux/actions/actions";
-const socket = require("socket.io-client")("http://localhost:5000");
+const socket = require("socket.io-client")(
+    "https://zoocial-backend.herokuapp.com"
+);
 
 const Navbar = (props) => {
     const [search, setSearch] = useState("");
