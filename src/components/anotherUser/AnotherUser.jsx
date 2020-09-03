@@ -31,10 +31,12 @@ const AnotherUser = (props) => {
     }, []);
 
     const linkToAnotherUser = (a) => {
-        props.getAnotherUser({
-            id: a._id,
-        });
-        props.getAnotherUserPosts({ id: a._id });
+        if (a._id !== user.user._id) {
+            props.getAnotherUser({
+                id: a._id,
+            });
+            props.getAnotherUserPosts({ id: a._id });
+        }
     };
 
     dayjs.extend(relativeTime);
