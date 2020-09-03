@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Profile.sass";
 import Button from "@material-ui/core/Button";
-import { withRouter, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { connect, useSelector } from "react-redux";
 import {
     profile,
@@ -44,9 +44,8 @@ const Profile = (props) => {
         props.getMyPosts();
         props.profile();
         window.scrollTo(0, 0);
-
-        return;
-    }, [props]);
+        // eslint-disable-next-line
+    }, []);
 
     const update = (e) => {
         e.preventDefault();
@@ -92,81 +91,93 @@ const Profile = (props) => {
         );
     };
 
-    const logout = () => {
-        props.logout();
-        props.history.push("/");
-    };
-
     return (
         <div className="profile">
-            <div className="user">
-                <div className="wide-profile-flex">
-                    <div className="wide-profile-left">
-                        <h1>{user.user.username}</h1>
-                        {user.user.image ? (
-                            <div>
-                                <input
-                                    style={{ display: "none" }}
-                                    name="image"
-                                    id="image"
-                                    type="file"
-                                    accept=".jpg, .png, .jpeg"
-                                    value={""}
-                                    onChange={imageOnChange}
-                                />
-                                <label htmlFor="image">
+            <div className="profile-wide-box">
+                <div className="profile-wide-left">
+                    <h1 className="profile-title">{user.user.username}</h1>
+                    {user.user.image ? (
+                        <div className="profile-image-box">
+                            <input
+                                style={{ display: "none" }}
+                                name="image"
+                                id="image"
+                                type="file"
+                                accept=".jpg, .png, .jpeg"
+                                value={""}
+                                onChange={imageOnChange}
+                            />
+                            <label className="profile-label" htmlFor="image">
+                                {loading ? (
+                                    <div className="profile-image-loading-box">
+                                        <FontAwesomeIcon
+                                            className="profile-image-loading"
+                                            icon={faSpinner}
+                                            spin
+                                        />
+                                    </div>
+                                ) : (
                                     <img
                                         src={user.user.image}
                                         alt="profile pic"
-                                        className={
-                                            loading ? "loading-image" : null
-                                        }
+                                        className="profile-image"
                                     />
-                                </label>
-                            </div>
-                        ) : (
-                            <div>
-                                <input
-                                    style={{ display: "none" }}
-                                    name="image"
-                                    id="image"
-                                    type="file"
-                                    accept=".jpg, .png, .jpeg"
-                                    value={""}
-                                    onChange={imageOnChange}
-                                />
-                                <label htmlFor="image">
+                                )}
+                            </label>
+                        </div>
+                    ) : (
+                        <div className="profile-image-box">
+                            <input
+                                style={{ display: "none" }}
+                                name="image"
+                                id="image"
+                                type="file"
+                                accept=".jpg, .png, .jpeg"
+                                value={""}
+                                onChange={imageOnChange}
+                            />
+                            <label className="profile-label" htmlFor="image">
+                                {loading ? (
+                                    <div className="profile-image-loading-box">
+                                        <FontAwesomeIcon
+                                            className="profile-image-loading"
+                                            icon={faSpinner}
+                                            spin
+                                        />
+                                    </div>
+                                ) : (
                                     <img
                                         src={noImg}
                                         alt="no profile pic"
-                                        className={
-                                            loading ? "loading-image" : null
-                                        }
+                                        className="profile-image"
                                     />
-                                </label>
-                            </div>
-                        )}
-                        <p className="bio">{user.user.bio}</p>
-                    </div>
-                    <div className="wide-profile-right">
-                        <div className="user-details">
-                            <p>{user.user.age}</p>
-                            <p>{user.user.gender}</p>
-                            <p>{user.user.location}</p>
-                            <p>
-                                <a
-                                    href={user.user.website}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
-                                    {user.user.website}
-                                </a>
-                            </p>
-                            <p>
-                                Member for{" "}
-                                {dayjs(user.user.createdAt).fromNow(true)}
-                            </p>
+                                )}
+                            </label>
                         </div>
+                    )}
+                    <p className="bio">{user.user.bio}</p>
+                </div>
+                <div className="profile-wide-right">
+                    <div className="user-details">
+                        <p>{user.user.age}</p>
+                        <p>{user.user.gender}</p>
+                        <p>{user.user.location}</p>
+                        <p>
+                            <a
+                                href={user.user.website}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="website-link"
+                            >
+                                {user.user.website}
+                            </a>
+                        </p>
+                        <p>
+                            Member for{" "}
+                            {dayjs(user.user.createdAt).fromNow(true)}
+                        </p>
+                    </div>
+                    <div className="edit-logout-button-box">
                         <Button
                             className="edit-logout-button"
                             onClick={() => {
@@ -181,226 +192,237 @@ const Profile = (props) => {
                         >
                             Edit Profile
                         </Button>
-                        <Button className="edit-logout-button" onClick={logout}>
+                        <Button
+                            className="edit-logout-button"
+                            onClick={() => props.logout(props.history)}
+                        >
                             Logout
                         </Button>
                     </div>
                 </div>
-                {modal && (
-                    <div className="modal">
+            </div>
+            {modal && (
+                <div className="modal">
+                    <div className="modal-close-container">
                         <FontAwesomeIcon
                             onClick={() => setModal(false)}
-                            className="close"
+                            className="modal-close"
                             icon={faTimes}
+                            size="2x"
                         />
-                        <input
-                            placeholder={"Username"}
-                            id="username"
-                            name="username"
-                            type="text"
-                            value={username || ""}
-                            onChange={(e) => setUsername(e.target.value)}
-                        />
-                        <input
-                            placeholder={"Age"}
-                            id="age"
-                            name="age"
-                            type="text"
-                            value={age || ""}
-                            onChange={(e) => setAge(e.target.value)}
-                        />
-                        <input
-                            placeholder={"Gender"}
-                            id="gender"
-                            name="gender"
-                            type="text"
-                            value={gender || ""}
-                            onChange={(e) => setGender(e.target.value)}
-                        />
-                        <input
-                            placeholder={"Bio"}
-                            id="bio"
-                            name="bio"
-                            type="text"
-                            value={bio || ""}
-                            onChange={(e) => setBio(e.target.value)}
-                        />
-                        <input
-                            placeholder={"Location"}
-                            id="location"
-                            name="location"
-                            type="text"
-                            value={location || ""}
-                            onChange={(e) => setLocation(e.target.value)}
-                        />
-                        <input
-                            placeholder={"Website"}
-                            id="website"
-                            name="website"
-                            type="text"
-                            value={website || ""}
-                            onChange={(e) => setWebsite(e.target.value)}
-                        />
-                        <Button onClick={update}>Update</Button>
                     </div>
-                )}
-                <div className="following-followers-flex">
-                    <div className="following-followers">
-                        <p>Following:</p>
-                        <div>
-                            {user.user.following &&
-                                user.user.following.map((a, key) => {
-                                    return (
-                                        <Link to={`/user/${a._id}`} key={key}>
-                                            {a.image ? (
-                                                <img src={a.image} alt="" />
-                                            ) : (
-                                                <img src={noImg} alt="" />
-                                            )}
-                                        </Link>
-                                    );
-                                })}
-                        </div>
-                    </div>
-                    <div className="following-followers">
-                        <p>Followers:</p>
-                        <div>
-                            {user.user.followers &&
-                                user.user.followers.map((a, key) => {
-                                    return (
-                                        <Link to={`/user/${a._id}`} key={key}>
-                                            {a.image ? (
-                                                <img src={a.image} alt="" />
-                                            ) : (
-                                                <img src={noImg} alt="" />
-                                            )}
-                                        </Link>
-                                    );
-                                })}
-                        </div>
+                    <input
+                        placeholder="Username"
+                        id="username"
+                        name="username"
+                        type="text"
+                        value={username || ""}
+                        onChange={(e) => setUsername(e.target.value)}
+                        className="modal-input"
+                    />
+                    <input
+                        placeholder="Age"
+                        id="age"
+                        name="age"
+                        type="text"
+                        value={age || ""}
+                        onChange={(e) => setAge(e.target.value)}
+                        className="modal-input"
+                    />
+                    <input
+                        placeholder="Gender"
+                        id="gender"
+                        name="gender"
+                        type="text"
+                        value={gender || ""}
+                        onChange={(e) => setGender(e.target.value)}
+                        className="modal-input"
+                    />
+                    <input
+                        placeholder="Bio"
+                        id="bio"
+                        name="bio"
+                        type="text"
+                        value={bio || ""}
+                        onChange={(e) => setBio(e.target.value)}
+                        className="modal-input"
+                    />
+                    <input
+                        placeholder="Location"
+                        id="location"
+                        name="location"
+                        type="text"
+                        value={location || ""}
+                        onChange={(e) => setLocation(e.target.value)}
+                        className="modal-input"
+                    />
+                    <input
+                        placeholder="Website"
+                        id="website"
+                        name="website"
+                        type="text"
+                        value={website || ""}
+                        onChange={(e) => setWebsite(e.target.value)}
+                        className="modal-input"
+                    />
+                    <Button className="update-button" onClick={update}>
+                        Update
+                    </Button>
+                </div>
+            )}
+            <div className="following-followers-box">
+                <div className="following-followers">
+                    <h2 className="following-title">Following:</h2>
+                    <div className="following-followers-container">
+                        {user.user.following &&
+                            user.user.following.map((a, key) => {
+                                return (
+                                    <Link
+                                        className="following-followers-link"
+                                        to={`/user/${a._id}`}
+                                        key={key}
+                                    >
+                                        {a.image ? (
+                                            <img
+                                                className="following-followers-image"
+                                                src={a.image}
+                                                alt=""
+                                            />
+                                        ) : (
+                                            <img
+                                                className="following-followers-image"
+                                                src={noImg}
+                                                alt=""
+                                            />
+                                        )}
+                                    </Link>
+                                );
+                            })}
                     </div>
                 </div>
-                <hr />
-                {user.loading ? (
-                    <FontAwesomeIcon
-                        spin
-                        icon={faSpinner}
-                        className="spinner"
-                    />
-                ) : (
-                    <div className="posts">
-                        {user.posts
-                            .map((a, key) => {
+                <div className="following-followers">
+                    <h2 className="following-title">Followers:</h2>
+                    <div className="following-followers-container">
+                        {user.user.followers &&
+                            user.user.followers.map((a, key) => {
                                 return (
-                                    <div className="post" key={key}>
-                                        <div className="post-flex">
-                                            <FontAwesomeIcon
-                                                icon={faTrash}
-                                                className="delete"
-                                                onClick={() =>
-                                                    props.deletePost({
-                                                        id: a._id,
-                                                    })
-                                                }
+                                    <Link
+                                        className="following-followers-link"
+                                        to={`/user/${a._id}`}
+                                        key={key}
+                                    >
+                                        {a.image ? (
+                                            <img
+                                                className="following-followers-image"
+                                                src={a.image}
+                                                alt=""
                                             />
-                                            {user.user.image ? (
-                                                <img
-                                                    src={user.user.image}
-                                                    alt=""
-                                                />
-                                            ) : (
-                                                <img src={noImg} alt="" />
-                                            )}
-                                            <div className="post-date">
-                                                {user.user.username}
-                                                <p
-                                                    style={{
-                                                        color: "#d1d1d1",
-                                                        fontSize: "12px",
-                                                        marginTop: "5px",
-                                                    }}
-                                                >
-                                                    {dayjs(a.createdAt).fromNow(
-                                                        true
-                                                    )}{" "}
-                                                    ago
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <p
-                                            style={{
-                                                fontSize: "22px",
-                                                wordBreak: "break-word",
-                                            }}
-                                        >
-                                            {a.post}
-                                        </p>
-                                        <div className="post-bottom-buttons">
-                                            <Button
-                                                onClick={() =>
-                                                    props.like({
-                                                        id: a._id,
-                                                    })
-                                                }
-                                                className={
-                                                    a.likedBy.includes(
-                                                        user.user._id
-                                                    )
-                                                        ? "liked"
-                                                        : "like-button"
-                                                }
-                                            >
-                                                {a.likes}
-                                                <FontAwesomeIcon
-                                                    icon={faHeart}
-                                                    style={{
-                                                        marginLeft: "10px",
-                                                    }}
-                                                />
-                                            </Button>
-                                            <Button
-                                                onClick={() =>
-                                                    props.dislike({
-                                                        id: a._id,
-                                                    })
-                                                }
-                                                className={
-                                                    a.dislikedBy.includes(
-                                                        user.user._id
-                                                    )
-                                                        ? "disliked"
-                                                        : "dislike-button"
-                                                }
-                                            >
-                                                {a.dislikes}
-                                                <FontAwesomeIcon
-                                                    icon={faHeartBroken}
-                                                    style={{
-                                                        marginLeft: "10px",
-                                                    }}
-                                                />
-                                            </Button>
-                                            <Link
-                                                to={`/post/${a._id}`}
-                                                className="comment-button"
-                                            >
-                                                <Button>
-                                                    {a.commentCount}
-                                                    <FontAwesomeIcon
-                                                        icon={faCommentAlt}
-                                                        style={{
-                                                            marginLeft: "10px",
-                                                        }}
-                                                    />
-                                                </Button>
-                                            </Link>
-                                        </div>
-                                    </div>
+                                        ) : (
+                                            <img
+                                                className="following-followers-image"
+                                                src={noImg}
+                                                alt=""
+                                            />
+                                        )}
+                                    </Link>
                                 );
-                            })
-                            .reverse()}
+                            })}
                     </div>
-                )}
+                </div>
+            </div>
+            <div className="posts-container">
+                {user.myPosts
+                    .map((a, key) => {
+                        return (
+                            <div className="posts" key={key}>
+                                <div className="post-box">
+                                    <FontAwesomeIcon
+                                        icon={faTrash}
+                                        className="delete"
+                                        onClick={() =>
+                                            props.deletePost({
+                                                id: a._id,
+                                            })
+                                        }
+                                    />
+                                    {user.user.image ? (
+                                        <img
+                                            className="post-user-image"
+                                            src={user.user.image}
+                                            alt=""
+                                        />
+                                    ) : (
+                                        <img
+                                            className="post-user-image"
+                                            src={noImg}
+                                            alt=""
+                                        />
+                                    )}
+                                    <div className="post-user-date">
+                                        <p className="post-user">
+                                            {user.user.username}
+                                        </p>
+                                        <p className="post-date">
+                                            {dayjs(a.createdAt).fromNow(true)}{" "}
+                                            ago
+                                        </p>
+                                    </div>
+                                </div>
+                                <p className="user-post">{a.post}</p>
+                                <div className="post-bottom-buttons">
+                                    <Button
+                                        onClick={() =>
+                                            props.like({
+                                                id: a._id,
+                                            })
+                                        }
+                                        className={
+                                            a.likedBy.includes(user.user._id)
+                                                ? "liked"
+                                                : "like-button"
+                                        }
+                                    >
+                                        {a.likes}
+                                        <FontAwesomeIcon
+                                            icon={faHeart}
+                                            className="heart-icon"
+                                        />
+                                    </Button>
+                                    <Button
+                                        onClick={() =>
+                                            props.dislike({
+                                                id: a._id,
+                                            })
+                                        }
+                                        className={
+                                            a.dislikedBy.includes(user.user._id)
+                                                ? "disliked"
+                                                : "dislike-button"
+                                        }
+                                    >
+                                        {a.dislikes}
+                                        <FontAwesomeIcon
+                                            icon={faHeartBroken}
+                                            className="heart-icon"
+                                        />
+                                    </Button>
+                                    <Link
+                                        to={`/post/${a._id}`}
+                                        className="comment-button-link"
+                                    >
+                                        <Button className="comment-button">
+                                            {a.commentCount}
+                                            <FontAwesomeIcon
+                                                icon={faCommentAlt}
+                                                className="comment-icon"
+                                            />
+                                        </Button>
+                                    </Link>
+                                </div>
+                            </div>
+                        );
+                    })
+                    .reverse()}
             </div>
         </div>
     );
@@ -414,4 +436,4 @@ export default connect(null, {
     updateProfile,
     getMyPosts,
     logout,
-})(withRouter(Profile));
+})(Profile);

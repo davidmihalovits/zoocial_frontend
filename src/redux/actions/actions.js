@@ -15,22 +15,22 @@ import {
     DELETE_POST,
     UPDATE_PROFILE,
     USERS,
-    GET_ANOTHER_USER_REQUEST,
+    //GET_ANOTHER_USER_REQUEST,
     GET_ANOTHER_USER,
     GET_MY_POSTS,
     GET_ANOTHER_USER_POSTS,
     FOLLOW,
     GET_FEED,
-    GET_FEED_REQUEST,
+    //GET_FEED_REQUEST,
     GET_ANOTHER_POST,
-    GET_ANOTHER_POST_REQUEST,
-    GET_MY_POSTS_REQUEST,
-    GET_COMMENTS_REQUEST,
+    //GET_ANOTHER_POST_REQUEST,
+    //GET_MY_POSTS_REQUEST,
+    //GET_COMMENTS_REQUEST,
     GET_COMMENTS,
     COMMENT,
     SEARCH,
     SEARCH_ERROR,
-    SEARCH_REQUEST,
+    //SEARCH_REQUEST,
     GET_NOTIFICATIONS,
     READ_NOTIFICATIONS,
 } from "./types";
@@ -71,6 +71,7 @@ export const login = (login) => (dispatch) => {
                 type: LOGIN_SUCCESS,
                 payload: res.data,
             });
+            dispatch(getNotifications());
         } else if (res.data.status === "Invalid credentials.") {
             dispatch({
                 type: LOGIN_FAIL,
@@ -125,14 +126,16 @@ export const signup = (signup) => (dispatch) => {
     });
 };
 
-export const logout = () => (dispatch) => {
-    localStorage.removeItem("token");
+export const logout = (history) => (dispatch) => {
     dispatch({
         type: LOGOUT,
     });
+    localStorage.removeItem("token");
+    history.push("/");
+    window.location.reload();
 };
 
-export const like = (id, user, post) => (dispatch) => {
+export const like = (id) => (dispatch) => {
     const token = localStorage.getItem("token");
     if (token) {
         axios
@@ -149,12 +152,12 @@ export const like = (id, user, post) => (dispatch) => {
                 const socket = require("socket.io-client")(
                     "http://localhost:5000"
                 );
-                socket.emit("like", user, post);
+                socket.emit("like", id);
             });
     }
 };
 
-export const dislike = (id, user, post) => (dispatch) => {
+export const dislike = (id) => (dispatch) => {
     const token = localStorage.getItem("token");
     if (token) {
         axios
@@ -171,7 +174,7 @@ export const dislike = (id, user, post) => (dispatch) => {
                 const socket = require("socket.io-client")(
                     "http://localhost:5000"
                 );
-                socket.emit("dislike", user, post);
+                socket.emit("dislike", id);
             });
     }
 };
@@ -370,11 +373,11 @@ export const getComments = (id) => (dispatch) => {
     }
 };
 
-export const comment = (comment) => (dispatch) => {
+export const comment = (id, comment) => (dispatch) => {
     const token = localStorage.getItem("token");
     if (token) {
         axios
-            .post(`http://localhost:5000/comment/${comment.id}`, comment, {
+            .post(`http://localhost:5000/comment/${id.id}`, comment, {
                 headers: { "X-Auth-Token": token },
             })
             .then((res) => {
@@ -387,7 +390,7 @@ export const comment = (comment) => (dispatch) => {
                 const socket = require("socket.io-client")(
                     "http://localhost:5000"
                 );
-                socket.emit("comment", comment);
+                socket.emit("comment", id);
             });
     }
 };

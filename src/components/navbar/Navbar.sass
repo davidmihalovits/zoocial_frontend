@@ -1,225 +1,276 @@
 @import '../../App'
 
-.navbar     
-    .top
-        border-bottom: 1px solid #ebebeb
-        position: fixed
-        top: 0
-        width: 100%
-        z-index: 1000
-
-        .top-inner
-            display: flex
-            align-items: center
-            background-color: white
-            padding: 10px
-            
-            .top-middle
-                display: none
-
-            .top-right
-                margin-left: auto
-                position: relative
-                display: flex
-                align-items: center
-
-                .notifications-modal
-                    display: none
-
-                .login-button
-                    background-color: $primary-color
-                    color: white
-                    border: none
-                    border-radius: 0px
-                    text-transform: unset
-                    padding: 5px 20px
-                    display: block
-
-                    &:hover
-                        background-color: $primary-color
-
-                .bell
-                    font-size: 20px
-                    cursor: pointer
-                    color: black
-
-                .bell-modal
-                    display: none
-
-                .badge
-                    position: absolute
-                    right: 0
-                    margin-right: 8px
-                    margin-bottom: 22px
-                    color: $primary-color
-                    font-size: 9px
-
-                .search-input
-                    outline: none
-                    font-size: 14px
-                    border: none
-                    background-color: #f7f7f7a8
-                    border-radius: 22px
-                    padding: 8px
-                    margin-right: 15px
-                    width: 150px
-
-                .search-button
-                    position: absolute
-                    left: 0
-                    margin-left: 125px
-                    color: $primary-color
-                    font-size: 14px
-                    cursor: pointer
+// authenticated === false
+.navbar-container-auth-false
+    border-bottom: 1px solid #f7f7f7
+    position: fixed
+    top: 0
+    width: 100%
+    z-index: 10
         
+    .navbar-inner
+        display: grid
+        grid-template-columns: 1fr 1fr
+        align-items: center
+        background-color: white
+        padding: 6px 16px
+        max-width: 1200px
+        margin: 0 auto
+
+        .title-link
+            text-decoration: none
+
             .title
                 color: $primary-color
                 font-family: 'Kaushan Script'
-                font-size: 35px
+                font-size: 30px
                 font-weight: bold
 
-    .bottom
+        .login-button-link
+            text-decoration: none
+            justify-self: end
+
+            .login-button
+                background-color: $primary-color
+                color: white
+                border: none
+                border-radius: 0px
+                text-transform: unset
+                padding: 5px 20px
+
+                &:hover
+                    background-color: $hover-color
+
+// authenticated === true
+.navbar-container-auth-true
+    .navbar-top
+        border-bottom: 1px solid #f7f7f7
+        position: fixed
+        top: 0
+        width: 100%
+        z-index: 10
+        
+        .navbar-top-inner
+            display: grid
+            grid-template-columns: 1fr 2fr
+            align-items: center
+            background-color: white
+            padding: 6px 16px
+            max-width: 1200px
+            margin: 0 auto
+
+            .title-link
+                text-decoration: none
+
+                .title
+                    color: $primary-color
+                    font-family: 'Kaushan Script'
+                    font-size: 30px
+                    font-weight: bold
+
+            .navbar-bottom-middle
+                display: none
+
+            .navbar-inner-right
+                justify-self: end
+
+                .search-input
+                    width: 130px
+                    font-size: 14px
+                    border: none
+                    outline: none
+                    background-color: #f7f7f7
+                    color: $primary-color
+                    padding: 8px 4px
+
+                .search-button
+                    position: absolute
+                    width: 12px
+                    height: 12px
+                    margin-left: -24px
+                    margin-top: 12px
+                    cursor: pointer
+
+                .bell-link
+                    color: black
+                    margin-left: 15px
+
+                    .badge
+                        position: absolute
+                        width: 8px
+                        height: 8px
+                        color: $primary-color
+                        margin-top: 6px
+                        margin-left: -6px
+
+    .navbar-bottom
+        border-top: 1px solid #f7f7f7
         position: fixed
         bottom: 0
-        border-top: 1px solid #ebebeb
         width: 100%
-        z-index: 1000
-        display: flex
-        justify-content: space-around
-        background-color: white
-                
-        img
-            width: 24.5px
-            height: 24.5px
-            object-fit: cover
-            border-radius: 50%
+        z-index: 10
 
-        a 
-            width: 100%
+        .navbar-bottom-inner
+            display: grid
+            grid-template-columns: 1fr 1fr 1fr 1fr
+            align-items: center
+            background-color: white
+            max-width: 1200px
+            margin: 0 auto
 
-            button
-                width: 100%
-                padding: 9px 0 5px 0
-                text-transform: unset
+            .active
+                .navlink-button
+                    color: $primary-color
 
-                p
-                    font-size: 12px
-
-        .active 
-            button
-                color: $primary-color
-
-                img 
-                    border: 1.5px solid $primary-color
-
-@media only screen and (min-width: 768px) 
-    .navbar
-        .bottom
-            display: none
-
-        .top
-            .top-inner
-                display: flex
-                justify-content: space-between
-                align-items: center
-                padding: 10px 20px
-
-                .top-middle
-                    display: flex
-                    align-items: center
-
-                    a
-                        width: 100%
+                    &:hover
+                        background-color: #f7f7f7
                         
-                        button
-                            width: 100%
+            .navlink
+                text-decoration: none
+                width: 100%
+
+                .navlink-button
+                    text-transform: unset
+                    width: 100%
+                    border-radius: 0px
+
+                    &:hover
+                        background-color: #f7f7f7
+
+                    .navlink-box
+                        display: grid
+                        grid-template-rows: 1fr 1fr
+                        justify-items: center
+
+                        .navlink-text
                             font-size: 12px
-                            text-transform: unset
-                            padding: 0px
 
-                    img
-                        width: 24.5px
-                        height: 24.5px
-                        object-fit: cover
-                        border-radius: 50%
-                        margin-bottom: -3.5px
+                        .navlink-icon
+                            font-size: 18px
+                            align-self: end
+                        
+                        .navbar-user-image
+                            width: 18px
+                            height: 18px
+                            object-fit: cover
+                            align-self: end
 
-                    .active 
-                        button
-                            color: $primary-color
+@media only screen and (min-width: 768px)
+    // authenticated === true
+    .navbar-container-auth-true
+        .navbar-top
+            .navbar-top-inner
+                display: grid
+                grid-template-columns: 1fr 1fr 1fr
+                align-items: center
+                background-color: white
+                padding: 6px 16px
+                max-width: 1200px
+                margin: 0 auto
 
-                            img 
-                                border: 1.5px solid $primary-color
+                .title-link
+                    .title
+                        font-size: 40px
 
-                .top-right
-                    margin-left: 0
+                .navbar-bottom-middle
+                    display: initial
+                    width: 100%
+                    z-index: 10
 
-                    .bell
-                        display: none
-
-                    .bell-modal
-                        display: initial
-                        font-size: 20px
-                        cursor: pointer
-                        color: black
-
-                    .notifications-modal
-                        display: initial
-                        position: absolute
-                        right: 0
-                        top: 0
-                        margin: 70px 10px 0 0
-                        height: 500px
-                        width: 300px
-                        padding: 15px 0
+                    .navbar-bottom-inner
+                        display: grid
+                        grid-template-columns: 1fr 1fr 1fr 1fr
+                        align-items: center
                         background-color: white
-                        z-index: 1000
-                        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4)
-                        overflow: auto
+                        max-width: 1200px
+                        margin: 0 auto
 
-                        .notification
-                            margin-bottom: 30px
-                            
-                            button
+                        .active
+                            .navlink-button
+                                color: $primary-color
+
+                                &:hover
+                                    background-color: #f7f7f7
+                                    
+                        .navlink
+                            text-decoration: none
+                            width: 100%
+
+                            .navlink-button
                                 text-transform: unset
                                 width: 100%
+                                border-radius: 0px
 
-                                .notification-flex
-                                    display: flex
-                                    align-items: center
-                                    width: 280px
+                                &:hover
+                                    background-color: #f7f7f7
 
-                                    img
-                                        width: 45px
-                                        height: 45px
+                                .navlink-box
+                                    display: grid
+                                    grid-template-rows: 1fr 1fr
+                                    justify-items: center
+
+                                    .navlink-text
+                                        font-size: 16px
+
+                                    .navlink-icon
+                                        font-size: 22px
+                                        align-self: end
+                                    
+                                    .navbar-user-image
+                                        width: 22px
+                                        height: 22px
                                         object-fit: cover
-                                        border-radius: 50%
-                                        margin-right: 10px
+                                        align-self: end
 
-                                    .notification-date
-                                        display: flex
-                                        flex-direction: column
-                                        align-items: flex-start
-                                        font-size: 12px
-            
-@media only screen and (min-width: 1200px) 
-    .navbar
-        .top
-            .top-inner
-                width: 1200px
-                margin: 0 auto
-           
+                .navbar-inner-right
+                    justify-self: end
 
+                    .search-input
+                        width: 170px
+                        font-size: 16px
+                        border: none
+                        outline: none
+                        background-color: #f7f7f7
+                        color: $primary-color
+                        padding: 10px 6px
 
+                    .search-button
+                        position: absolute
+                        width: 16px
+                        height: 16px
+                        margin-left: -28px
+                        margin-top: 12px
+                        cursor: pointer
 
+                    .bell-link
+                        color: black
+                        margin-left: 15px
 
-        
-            
-        
-       
-           
-        
-            
-            
-        
+                        .bell-icon
+                            width: 20px
+                            height: 20px
+
+                        .badge
+                            position: absolute
+                            width: 10px
+                            height: 10px
+                            color: $primary-color
+                            margin-top: 6px
+                            margin-left: -6px
+
+        .navbar-bottom
+            display: none
+
+@media only screen and (min-width: 1200px)
+    // authenticated === false
+    .navbar-container-auth-false
+        .navbar-inner
+            padding: 6px 0
+
+    // authenticated === true
+    .navbar-container-auth-true
+        .navbar-top
+            .navbar-top-inner
+                padding: 6px 0
+                    
 

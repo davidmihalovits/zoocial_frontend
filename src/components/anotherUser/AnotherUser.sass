@@ -2,138 +2,158 @@
 
 .another-user
     margin: 90px auto
-    width: 280px
+    padding: 0 16px
+    max-width: 1200px
 
-    h1 
-        font-size: 45px
-        font-weight: bold
-        word-wrap: break-word
+    .another-user-wide-box
+        .another-user-wide-left
+            .another-user-title 
+                font-size: 30px
+                font-weight: bold
 
-    img
-        width: 130px
-        height: 130px
-        object-fit: cover
-        border-radius: 50%
-        margin-top: 20px
-
-    .bio 
-        color: $primary-color
-        margin-top: 20px
-
-    .user-details
-        font-size: 14px
-        background-color: #f7f7f7a8
-        margin-top: 20px
-        padding: 20px
-        border-radius: 8px
-        line-height: 22px
-        word-wrap: break-word
-
-        a
-            color: black
+            .another-user-image
+                width: 130px
+                height: 130px
+                object-fit: cover
+                margin-top: 20px
     
-    .follow-true
-        width: 100%
-        margin-top: 20px
-        border: 1px solid $primary-color
-        background-color: $primary-color
-        color: white
-        text-transform: unset
-        font-size: 24px
-        border-radius: 0px
+            .bio 
+                color: $primary-color
+                margin-top: 20px
 
-        &:hover 
-            background-color: $primary-color
+        .another-user-wide-right
+            .user-details
+                font-size: 14px
+                background-color: #f7f7f7
+                margin: 20px 0 0 0
+                padding: 15px
+                word-wrap: break-word
 
-    .follow-false
-        width: 100%
-        margin-top: 20px
-        border: 1px solid $primary-color
-        border-radius: 0px
-        text-transform: unset
-        font-size: 24px
-        color: $primary-color
+                .website-link
+                    text-decoration: none
+                    color: black
 
-    .following-followers
-        margin-top: 20px
+            .follow-true-button
+                width: 100%
+                margin-top: 20px
+                border: 1px solid $primary-color
+                background-color: $primary-color
+                color: white
+                text-transform: unset
+                font-size: 22px
+                border-radius: 0px
 
-        p
-            font-size: 20px
-            font-weight: bold
+                &:hover 
+                    background-color: $hover-color
 
-        img
-            width: 34px
-            height: 34px
-            object-fit: cover
-            border-radius: 50%
-            margin: 5px 5px 0 0
+            .follow-false-button
+                width: 100%
+                margin-top: 20px
+                border: 1px solid $primary-color
+                border-radius: 0px
+                text-transform: unset
+                font-size: 22px
+                color: $primary-color
 
-    .posts
-        word-wrap: break-word
-        
-        .another-user-post
+    .following-followers-box
+        .following-followers
             margin-top: 20px
 
-            .post
-                font-size: 22px
+            .following-title
+                font-size: 20px
+                font-weight: bold
 
-            .post-by
-                display: flex
+            .following-followers-container
+                .following-followers-link
+                    .following-followers-image
+                        width: 35px
+                        height: 35px
+                        object-fit: cover
+                        margin: 5px 10px 0 0
 
-                img
-                    width: 45px
-                    height: 45px
-                    object-fit: cover
-                    border-radius: 50%
-                    margin: 0 10px 0 0
-
-            .post-bottom-buttons
-                display: flex
-
-                .comment-button
-                    margin-left: auto
-                    
-                button
-                    margin-top: 15px
-                    font-size: 16px
-                    height: 40px
-                    padding: 0px
-
-                .liked
-                    color: $primary-color
-
-                .disliked
-                    color: $primary-color
-
-@media only screen and (min-width: 768px) 
-    .another-user
-        width: 600px
-
-        hr 
-            margin: 60px 0
-
-        .wide-profile-flex
-            display: flex
-
-            .wide-profile-left
-                flex: 1
-
-            .wide-profile-right
-                flex: 1
-
-                .user-details
-                    margin: 0
-
-        .following-followers-flex
-            display: flex
-            margin-top: 40px
-
-            .following-followers
-                flex: 1
+    .posts-container
+        margin-top: 80px
 
         .posts
-            width: 350px
-            margin: 0 auto
+            margin-top: 40px
+            background-color: #f7f7f7
+            padding: 15px
 
-            .another-user-post
-                margin-top: 50px
+            .post-box
+                position: relative
+                display: grid
+                grid-template-columns: 40px 1fr
+                align-items: center
+
+                .post-user-image
+                    width: 35px
+                    height: 35px
+                    object-fit: cover
+
+                .post-user-date
+                    .post-user
+                        font-size: 14px
+                        font-weight: bold
+
+                    .post-date
+                        font-size: 12px
+                        font-weight: 300
+
+            .user-post
+                margin-top: 20px
+                wordBreak: break-word
+
+            .post-bottom-buttons
+                margin: 20px 0 0 0
+                display: grid
+                grid-template-columns: 1fr 1fr 1fr
+                align-items: center
+                justify-items: center
+
+                .like-button
+                    width: 100%
+                    border-radius: 0px
+
+                    .heart-icon
+                        margin-left: 5px
+
+                .dislike-button
+                    width: 100%
+                    border-radius: 0px
+                    
+                    .heart-icon
+                        margin-left: 5px
+
+                .liked
+                    width: 100%
+                    border-radius: 0px
+                    color: $primary-color
+
+                    .heart-icon
+                        margin-left: 5px
+
+                .disliked
+                    width: 100%
+                    border-radius: 0px
+                    color: $primary-color
+
+                    .heart-icon
+                        margin-left: 5px
+
+                .comment-button-link
+                    text-decoration: none
+                    width: 100%
+
+                    .comment-button
+                        width: 100%
+                        border-radius: 0px
+                    
+                        .comment-icon
+                            margin-left: 5px
+    
+@media only screen and (min-width: 768px)
+    .another-user
+        padding: 0
+        width: 400px
+
+

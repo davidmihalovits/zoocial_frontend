@@ -1,43 +1,47 @@
 @import '../../App'
 
-.users
+.users-container
     margin: 90px auto
-    width: 280px
-    word-wrap: break-word
+    padding: 0 16px
+    max-width: 1200px
+    display: grid
+    grid-template-columns: 1fr 1fr
+    align-items: center
+    justify-items: center
+    gap: 10px
 
-    .users-list
-        button
-            width: 100%
-            padding: 0px
-            margin-top: 20px
-            text-transform: unset
-
-            .users-list-card
-                display: flex
-                align-items: center
-                background-color: #f7f7f7a8
-                border-radius: 12px
-                padding: 10px
-                color: black
-                width: 280px
-
-                p 
-                    font-size: 26px
-                    
-                img
-                    width: 60px
-                    height: 60px
-                    object-fit: cover
-                    border-radius: 50%
-                    margin-right: 10px
-
-@media only screen and (min-width: 768px) 
     .users
-        width: 600px
+        background-color: #f7f7f7
+        width: 100%
 
-        .users-list
-            display: inline-block
-            width: 50%
+        .users-link
+            width: 100%
+            text-decoration: none
+
+            .users-button
+                width: 100%
+                text-transform: unset
+
+                .users-card
+                    display: grid
+                    grid-template-columns: 40px 1fr
+                    align-items: center
+                    justify-items: start
+                    width: 100%
+
+                    .users-username 
+                        
+                    .users-image
+                        width: 35px
+                        height: 35px
+                        object-fit: cover
+
+@media only screen and (min-width: 768px)
+    .users-container
+        padding: 0
+        width: 400px
+
+
             
                 
                 

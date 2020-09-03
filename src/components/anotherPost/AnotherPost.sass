@@ -1,101 +1,134 @@
 @import '../../App'
 
-.another-post
+.another-post-container
     margin: 90px auto
-    width: 280px
+    padding: 0 16px
+    max-width: 1200px
 
-    .comments
-        width: 220px
-        margin: 10px auto 0 auto
+    .another-post
+        background-color: #f7f7f7
+        padding: 10px
 
-        .comment
-            margin-top: 10px
-            word-wrap: break-word
-
-        .comments-flexbox
-            display: flex
+        .another-post-box
+            display: grid
+            grid-template-columns: 50px 1fr
             align-items: center
 
-            img
-                width: 35px
-                height: 35px
-                object-fit: cover
-                border-radius: 50%
-                margin-right: 10px
-
-    .container
-        border-bottom: 1px solid #ebebeb
-        padding-bottom: 10px
-
-        .the-post
-            word-wrap: break-word
-            
-            .buttons-flex
-                display: flex
-
-                .modal
-                    position: fixed
-                    margin-top: -60px
-                    z-index: 1000
-                    width: 280px
-                    border: none
-                    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4)
-                    display: flex
-
-                    .post-comment-button
-                        background-color: $primary-color
-                        color: white
-                        border-radius: 0px
-                        text-transform: unset
-                        margin: 0px
-                        height: 58px
-
-                        &:disabled 
-                            background-color: #d1d1d1
-
-                    input
-                        border: none
-                        outline: none
-                        font-size: 20px
-                        padding: 15px
-                        width: 216px
-
-                        &:focus 
-                            color: $primary-color
-
-                .comment-button
-                    margin-left: auto
-                
-                button
-                    margin-top: 15px
-                    font-size: 16px
-                    height: 40px
-                    padding: 0px
-
-                .liked
-                    color: $primary-color
-
-                .disliked
-                    color: $primary-color
-
-            .post
-                font-size: 22px
-
-            .another-post-flexbox
-                display: flex
-
-                img 
+            .another-post-user-link
+                .another-post-user-image
                     width: 45px
                     height: 45px
                     object-fit: cover
-                    border-radius: 50%
-                    margin-right: 10px
+
+            .another-post-user-date
+                .another-post-username
+                    font-size: 14px
+                    font-weight: bold
+
+                .another-post-date
+                    font-size: 12px
+                    font-weight: 300
+
+        .post
+            margin-top: 20px
+            word-break: break-word
+
+        .buttons-box
+            margin: 20px 0 0 0
+            display: grid
+            grid-template-columns: 1fr 1fr 1fr
+            align-items: center
+            justify-items: center
+
+            .like-button
+                width: 100%
+                border-radius: 0px
+
+                .heart-icon
+                    margin-left: 5px
+
+            .dislike-button
+                width: 100%
+                border-radius: 0px
+                
+                .heart-icon
+                    margin-left: 5px
+
+            .liked
+                width: 100%
+                border-radius: 0px
+                color: $primary-color
+
+                .heart-icon
+                    margin-left: 5px
+
+            .disliked
+                width: 100%
+                border-radius: 0px
+                color: $primary-color
+
+                .heart-icon
+                    margin-left: 5px
+
+            .comment-button
+                width: 100%
+                border-radius: 0px
+            
+                .comment-icon
+                    margin-left: 5px
+
+        .comment-box
+            display: grid
+            grid-template-columns: 2fr 1fr
+            margin-top: 20px
+
+            .comment-input
+                border-radius: 0px
+                border: none
+                color: $primary-color
+                outline: none
+                padding: 5px
+
+            .post-comment-button
+                background-color: $primary-color
+                border-radius: 0px
+                color: white
+                outline: none
+                text-transform: unset
+
+                &:disabled
+                    background-color: #d1d1d1
+
+    .comments-container
+        margin-top: 40px
+
+        .comments
+            margin-top: 20px
+
+            .comments-box
+                display: grid
+                grid-template-columns: 35px 1fr
+
+                .comment-user-link
+                    .comment-user-image
+                        width: 30px
+                        height: 30px
+                        object-fit: cover
+
+                .comment-user-date
+                    font-size: 12px
+
+                    .comment-username
+                        font-weight: bold
 
 @media only screen and (min-width: 768px)
-    .another-post
-        width: 350px
+    .another-post-container
+        padding: 0
+        width: 400px
+                
 
-        .container
-            margin-bottom: 50px
+
+
+
 
     

@@ -2,205 +2,223 @@
 
 .profile
     margin: 90px auto
-    width: 280px
-    word-wrap: break-word
-        
-    h1 
-        font-size: 45px
-        font-weight: bold
-        
-    .user
-        img
-            width: 130px
-            height: 130px
-            object-fit: cover
-            border-radius: 50%
-            margin-top: 20px
-            cursor: pointer
+    padding: 0 16px
+    max-width: 1200px
 
-        .loading-image
-            opacity: 0.1
-            transition: 2s
-        
-        .edit-logout-button
-            width: 50%
-            text-transform: unset
-            color: $primary-color
-            padding: 8px 0
-            border: 1px solid white
-            margin: 20px 0
-            font-size: 18px
+    .profile-wide-box
+        .profile-wide-left
+            .profile-title
+                font-size: 30px
+                font-weight: bold
 
-            &:hover
-                border: 1px solid $primary-color
-                background-color: white
-                border-radius: 0px
-        
-        .modal
-            background-color: white
-            position: fixed
-            z-index: 1000
-            left: 10%
-            right: 10%
-            bottom: 20%
-            top: 20%
-            max-width: 280px
-            margin: 0 auto
-            border: none
-            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4)
-            display: flex
-            flex-direction: column
-            justify-content: space-between
-            overflow: auto
+            .profile-image-box
+                .profile-label
+                    .profile-image
+                        width: 130px
+                        height: 130px
+                        object-fit: cover
+                        margin-top: 20px
+                        cursor: pointer
 
-            input
-                border: none
-                outline: none
-                padding: 15px
-                font-size: 18px
+                    .profile-image-loading-box
+                        width: 130px
+                        height: 130px
+                        margin-top: 20px
+                        background-color: #f7f7f7
 
-                &:focus 
-                    color: $primary-color
-
-            button
-                padding: 12px 0
-                text-transform: unset
-                background-color: $primary-color
-                color: white
-                border-top-left-radius: 0px
-                border-top-right-radius: 0px
-                border-bottom-right-radius: 0px
-                border-bottom-left-radius: 0px
-                font-size: 20px
-
-                &:disabled 
-                    background-color: #d1d1d1
-
-            .close
-                position: absolute
-                right: 0
+                        .profile-image-loading
+                            width: 130px
+                            height: 130px
+                            
+            .bio
                 color: $primary-color
-                margin: 10px
-                font-size: 22px
-                cursor: pointer
+                margin-top: 20px
 
-        .bio 
-            color: $primary-color
-            margin-top: 20px
+        .profile-wide-right
+            .user-details
+                font-size: 14px
+                background-color: #f7f7f7
+                margin: 20px 0 0 0
+                padding: 15px
+                word-wrap: break-word
 
-        .user-details
-            text-align: left
-            font-size: 14px
-            background-color: #f7f7f7a8
-            margin: 20px 0 0 0 
-            padding: 20px
-            border-radius: 8px
-            line-height: 22px
-            word-wrap: break-word
+                .website-link
+                    text-decoration: none
+                    color: black
 
-            a 
-                color: black
+            .edit-logout-button-box
+                display: grid
+                grid-template-columns: 1fr 1fr
+                margin-top: 20px
 
+                .edit-logout-button
+                    color: $primary-color
+                    text-transform: unset
+                    border-radius: 0px
+
+                    &:hover
+                        background-color: #f7f7f7
+
+    .following-followers-box
         .following-followers
             margin-top: 20px
 
-            p
+            .following-title
                 font-size: 20px
                 font-weight: bold
 
-            img
-                width: 34px
-                height: 34px
-                object-fit: cover
-                border-radius: 50%
-                margin: 5px 5px 0 0
+            .following-followers-container
+                .following-followers-link
+                    .following-followers-image
+                        width: 35px
+                        height: 35px
+                        object-fit: cover
+                        margin: 5px 10px 0 0
+
+    .posts-container
+        margin-top: 80px
 
         .posts
-            .post
-                margin-top: 20px
+            margin-top: 40px
+            background-color: #f7f7f7
+            padding: 15px
 
-                .post-flex
-                    display: flex
-                    word-wrap: break-word
-                    padding-right: 40px
+            .post-box
+                position: relative
+                display: grid
+                grid-template-columns: 40px 1fr
+                align-items: center
 
-                    img
-                        width: 45px
-                        height: 45px
-                        object-fit: cover
-                        border-radius: 50%
-                        margin: 0 10px 0 0
+                .delete
+                    position: absolute
+                    right: 0
+                    color: red
+                    opacity: 0.3
+                    cursor: pointer
+                    align-self: start
 
-                    .delete
-                        position: absolute
-                        margin-left: 245px
-                        color: red
-                        opacity: 0.2
-                        cursor: pointer
+                .post-user-image
+                    width: 35px
+                    height: 35px
+                    object-fit: cover
+
+                .post-user-date
+                    .post-user
+                        font-size: 14px
+                        font-weight: bold
 
                     .post-date
-                        display: flex
-                        flex-direction: column
+                        font-size: 12px
+                        font-weight: 300
 
-                .post-bottom-buttons
-                    display: flex
+            .user-post
+                margin-top: 20px
+                word-break: break-word
+
+            .post-bottom-buttons
+                margin: 20px 0 0 0
+                display: grid
+                grid-template-columns: 1fr 1fr 1fr
+                align-items: center
+                justify-items: center
+
+                .like-button
+                    width: 100%
+                    border-radius: 0px
+
+                    .heart-icon
+                        margin-left: 5px
+
+                .dislike-button
+                    width: 100%
+                    border-radius: 0px
+                    
+                    .heart-icon
+                        margin-left: 5px
+
+                .liked
+                    width: 100%
+                    border-radius: 0px
+                    color: $primary-color
+
+                    .heart-icon
+                        margin-left: 5px
+
+                .disliked
+                    width: 100%
+                    border-radius: 0px
+                    color: $primary-color
+
+                    .heart-icon
+                        margin-left: 5px
+
+                .comment-button-link
+                    text-decoration: none
+                    width: 100%
 
                     .comment-button
-                        margin-left: auto
+                        width: 100%
+                        border-radius: 0px
                     
-                    button
-                        margin-top: 15px
-                        font-size: 16px
-                        height: 40px
-                        padding: 0px
+                        .comment-icon
+                            margin-left: 5px
 
-                    .liked
-                        color: $primary-color
+    .modal
+        background-color: white
+        position: fixed
+        z-index: 10
+        left: 5%
+        right: 5%
+        bottom: 10%
+        top: 10%
+        max-width: 320px
+        max-height: 500px
+        margin: 0 auto
+        border: none
+        box-shadow: 0 0 10px 0 rgba(0,0,0,0.6)
+        overflow: auto
+        padding: 10px
 
-                    .disliked
-                        color: $primary-color
+        .modal-close-container
+            text-align: right
 
-@media only screen and (min-width: 768px) 
+            .modal-close
+                color: $primary-color
+                cursor: pointer
+
+        .modal-input
+            border: none
+            outline: none
+            padding: 15px
+            width: 100%
+            background-color: #f7f7f7
+            margin: 10px 0 0 0
+
+            &:focus 
+                color: $primary-color
+
+        .update-button
+            padding: 12px 0
+            width: 100%
+            text-transform: unset
+            background-color: $primary-color
+            color: white
+            margin: 20px 0 0 0
+            border-radius: 0px
+
+            &:disabled 
+                background-color: #d1d1d1
+
+@media only screen and (min-width: 768px)
     .profile
-        width: 600px
+        margin: 90px auto
+        padding: 0
+        width: 400px
+        
 
-        .user
-            hr 
-                margin: 60px 0
+       
 
-            .user-details
-                margin: 0 
-                
-            .wide-profile-flex
-                display: flex
 
-                .wide-profile-left
-                    flex: 1
-
-                .wide-profile-right
-                    flex: 1
-
-            .following-followers-flex
-                display: flex
-                margin-top: 40px
-
-                .following-followers
-                    flex: 1
-
-            .posts
-                width: 350px
-                margin: 0 auto
-
-                .post
-                    margin-top: 50px
-
-                    .post-flex
-                        .delete
-                            position: absolute
-                            margin-left: 335px
-                            color: red
-                            opacity: 0.2
-                            cursor: pointer
         
 
 

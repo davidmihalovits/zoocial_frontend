@@ -4,7 +4,7 @@ import Navbar from "./components/navbar/Navbar";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { PrivateRoute } from "./PrivateRoute";
 import { connect } from "react-redux";
-import { profile } from "./redux/actions/actions";
+import { profile, getNotifications } from "./redux/actions/actions";
 import Home from "./components/home/Home";
 import Login from "./components/login/Login";
 import Signup from "./components/signup/Signup";
@@ -20,16 +20,18 @@ import Notifications from "./components/notifications/Notifications";
 const App = (props) => {
     useEffect(() => {
         props.profile();
-    }, [props]);
+        props.getNotifications();
+        // eslint-disable-next-line
+    }, []);
 
     return (
         <BrowserRouter>
-            <div className="App">
+            <div>
                 <Navbar />
                 <Switch>
-                    <Home exact path="/" component={Home} />
-                    <Login path="/login" component={Login} />
-                    <Signup path="/signup" component={Signup} />
+                    <Route exact path="/" component={Home} />
+                    <Route path="/login" component={Login} />
+                    <Route path="/signup" component={Signup} />
                     <PrivateRoute path="/profile" component={Profile} />
                     <PrivateRoute path="/discover" component={Users} />
                     <PrivateRoute path="/feed" component={Feed} />
@@ -50,4 +52,5 @@ const App = (props) => {
 
 export default connect(null, {
     profile,
+    getNotifications,
 })(App);

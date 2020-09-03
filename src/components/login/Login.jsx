@@ -19,10 +19,10 @@ const Login = (props) => {
     const user = useSelector((state) => state.userReducer);
 
     useEffect(() => {
-        const token = localStorage.getItem("token");
-        if (token) {
+        if (user.authenticated) {
             props.history.push("/feed");
         }
+        window.scrollTo(0, 0);
     });
 
     const showPassword = () => {
@@ -42,23 +42,29 @@ const Login = (props) => {
 
     return (
         <div className="login">
-            <h1>Login</h1>
-            <form onSubmit={login} noValidate>
+            <h1 className="login-title">Login</h1>
+            <form className="login-form" onSubmit={login} noValidate>
+                <label className="login-label" htmlFor="email">
+                    Email
+                </label>
                 <input
-                    placeholder="Email"
                     id="email"
                     name="email"
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    className="login-input"
                 />
+                <label className="login-label" htmlFor="password">
+                    Password
+                </label>
                 <input
-                    placeholder="Password"
                     id="password"
                     name="password"
                     type={hidden ? "text" : "password"}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    className="login-input"
                 />
                 {hidden ? (
                     <FontAwesomeIcon
@@ -73,22 +79,29 @@ const Login = (props) => {
                         icon={faEye}
                     />
                 )}
-                <Button type="submit" disabled={!enabled || user.loading}>
-                    {user.loading ? (
+                <Button
+                    className="login-button"
+                    type="submit"
+                    disabled={!enabled || user.loading}
+                >
+                    {user.loading && (
                         <FontAwesomeIcon
                             className="login-spinner"
                             spin
                             icon={faSpinner}
                         />
-                    ) : (
-                        "Login"
-                    )}
+                    )}{" "}
+                    Login
                 </Button>
             </form>
-            <p>
-                Not a user yet? <Link to="/signup">Signup</Link>.
+            <p className="not-a-user">
+                Not a user yet?{" "}
+                <Link className="signup-link" to="/signup">
+                    Signup
+                </Link>
+                .
             </p>
-            {user.error && <div className="error">{user.error}</div>}
+            {user.error && <div className="login-error">{user.error}</div>}
         </div>
     );
 };

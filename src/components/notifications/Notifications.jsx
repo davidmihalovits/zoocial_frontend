@@ -17,7 +17,8 @@ const Notifications = (props) => {
     useEffect(() => {
         props.readNotification();
         window.scrollTo(0, 0);
-    }, [props]);
+        // eslint-disable-next-line
+    }, []);
 
     dayjs.extend(relativeTime);
 
@@ -33,23 +34,28 @@ const Notifications = (props) => {
                                         ? `/user/${a.sender._id}`
                                         : `/post/${a.post}`
                                 }
+                                className="notification-link"
                             >
-                                <Button>
-                                    <div className="notification-flex">
+                                <Button className="notification-button">
+                                    <div className="notification-box">
                                         {a.sender.image ? (
-                                            <img src={a.sender.image} alt="" />
+                                            <img
+                                                className="notification-user-image"
+                                                src={a.sender.image}
+                                                alt=""
+                                            />
                                         ) : (
-                                            <img src={noImg} alt="" />
+                                            <img
+                                                className="notification-user-image"
+                                                src={noImg}
+                                                alt=""
+                                            />
                                         )}
-                                        <div className="notification-date">
-                                            <p>{a.notification}</p>
-                                            <p
-                                                style={{
-                                                    color: "#d1d1d1",
-                                                    fontSize: "12px",
-                                                    marginTop: "5px",
-                                                }}
-                                            >
+                                        <div className="notification-date-text">
+                                            <p className="notification-text">
+                                                {a.notification}
+                                            </p>
+                                            <p className="notification-date">
                                                 {dayjs(a.createdAt).fromNow(
                                                     true
                                                 )}{" "}

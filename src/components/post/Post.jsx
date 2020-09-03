@@ -35,17 +35,21 @@ const Post = (props) => {
                 type="text"
                 value={post}
                 onChange={(e) => setPost(e.target.value)}
+                className="post-something-textarea"
             />
-            <Button onClick={postPost} disabled={disabled}>
-                {user.loading ? (
+            <Button
+                className="post-something-button"
+                onClick={postPost}
+                disabled={disabled}
+            >
+                {user.loading && (
                     <FontAwesomeIcon
                         className="post-spinner"
                         spin
                         icon={faSpinner}
                     />
-                ) : (
-                    "Post"
                 )}
+                Post
             </Button>
         </div>
     );

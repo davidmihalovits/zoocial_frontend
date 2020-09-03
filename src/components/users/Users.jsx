@@ -11,12 +11,13 @@ const Users = (props) => {
     useEffect(() => {
         props.users();
         window.scrollTo(0, 0);
-    }, [props]);
+        // eslint-disable-next-line
+    }, []);
 
     const user = useSelector((state) => state.userReducer);
 
     return (
-        <div className="users">
+        <div className="users-container">
             {user.users
                 .filter((a) => {
                     if (user.user._id === a._id) {
@@ -26,16 +27,26 @@ const Users = (props) => {
                 })
                 .map((a) => {
                     return (
-                        <div key={a._id} className="users-list">
-                            <Link to={`/user/${a._id}`}>
-                                <Button>
-                                    <div className="users-list-card">
+                        <div key={a._id} className="users">
+                            <Link className="users-link" to={`/user/${a._id}`}>
+                                <Button className="users-button">
+                                    <div className="users-card">
                                         {a.image ? (
-                                            <img src={a.image} alt="" />
+                                            <img
+                                                className="users-image"
+                                                src={a.image}
+                                                alt=""
+                                            />
                                         ) : (
-                                            <img src={noImg} alt="" />
+                                            <img
+                                                className="users-image"
+                                                src={noImg}
+                                                alt=""
+                                            />
                                         )}
-                                        <p>{a.username}</p>
+                                        <p className="users-username">
+                                            {a.username}
+                                        </p>
                                     </div>
                                 </Button>
                             </Link>

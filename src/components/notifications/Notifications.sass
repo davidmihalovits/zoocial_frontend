@@ -2,30 +2,49 @@
 
 .notifications
     margin: 90px auto
-    width: 280px
+    padding: 0 16px
+    max-width: 1200px
+
+    .notification:first-child
+        margin: 0
 
     .notification
-        margin-bottom: 30px
+        background-color: #f7f7f7
+        margin-top: 20px
         
-        button
-            text-transform: unset
+        .notification-link
+            text-decoration: none
             width: 100%
 
-            .notification-flex
-                display: flex
-                align-items: center
-                width: 280px
+            .notification-button
+                text-transform: unset
+                width: 100%
+                border-radius: 0px
 
-                img
-                    width: 45px
-                    height: 45px
-                    object-fit: cover
-                    border-radius: 50%
-                    margin-right: 10px
+                .notification-box
+                    display: grid
+                    grid-template-columns: 50px 1fr
+                    align-items: center
+                    justify-items: start
+                    width: 100%
 
-                .notification-date
-                    display: flex
-                    flex-direction: column
-                    align-items: flex-start
-                    font-size: 12px
+                    .notification-user-image
+                        width: 45px
+                        height: 45px
+                        object-fit: cover
+
+                    .notification-date-text
+                        font-size: 12px
+
+                        .notification-text
+                            text-align: left
+                            font-weight: bold
+
+                        .notification-date
+                            text-align: left
+
+@media only screen and (min-width: 768px)
+    .notifications
+        padding: 0
+        width: 400px
 

@@ -2,35 +2,35 @@
 
 .post-something
     margin: 90px auto
-    width: 280px
-    display: flex
-    flex-direction: column
+    width: 300px
 
-    .post-spinner
-        position: absolute
-        color: $primary-color
-
-    textarea
+    .post-something-textarea
         resize: none
         height: 200px
         outline: none
-        padding: 10px
+        padding: 15px
         color: $primary-color
         border: none
-        background-color: #f7f7f7a8
-        font-size: 22px
+        background-color: #f7f7f7
+        font-size: 18px
+        width: 100%
 
-    button
+    .post-something-button
         background-color: $primary-color
         color: white
         border-radius: 0px
         margin-top: 20px
-        font-size: 28px
+        font-size: 22px
         text-transform: unset
-        height: 60.8px
+        width: 100%
 
         &:disabled 
             background-color: #d1d1d1
 
-        &:focus
-            background-color: $primary-color
+        &:hover
+            background-color: $hover-color
+
+    .post-spinner
+        position: absolute
+        color: $primary-color
+        margin-left: 50px

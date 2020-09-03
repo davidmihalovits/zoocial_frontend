@@ -17,7 +17,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faHeart,
     faHeartBroken,
-    faSpinner,
     faCommentAlt,
 } from "@fortawesome/free-solid-svg-icons";
 
@@ -31,18 +30,22 @@ const AnotherPost = (props) => {
         props.getAnotherPost({ id: props.match.params.id });
         props.getComments({ id: props.match.params.id });
         window.scrollTo(0, 0);
-    }, [props]);
+        // eslint-disable-next-line
+    }, []);
 
     dayjs.extend(relativeTime);
 
     const postComment = async (e) => {
         e.preventDefault();
 
-        await props.comment({
-            comment: comment,
-            id: props.match.params.id,
-            user: user.post,
-        });
+        await props.comment(
+            {
+                id: props.match.params.id,
+                anotherUser: user.anotherUser,
+                user: user.user,
+            },
+            { comment: comment }
+        );
 
         setModal(false);
         setComment("");
@@ -50,11 +53,10 @@ const AnotherPost = (props) => {
 
     const enabled = comment.length > 0 && comment.length < 50;
 
-    if (user.post.status === "Invalid post.") {
+    if (user.post && user.post.status === "Invalid post.") {
         return (
             <p
                 style={{
-                    width: "280px",
                     margin: "90px auto",
                     textAlign: "center",
                 }}
@@ -68,7 +70,6 @@ const AnotherPost = (props) => {
         return (
             <p
                 style={{
-                    width: "280px",
                     margin: "90px auto",
                     textAlign: "center",
                 }}
@@ -79,189 +80,159 @@ const AnotherPost = (props) => {
     }
 
     return (
-        <div>
-            {user.loading ? (
-                <div style={{ textAlign: "center" }}>
-                    <FontAwesomeIcon
-                        className="spinner"
-                        icon={faSpinner}
-                        spin
-                    />
+        <div className="another-post-container">
+            <div className="another-post">
+                <div className="another-post-box">
+                    <Link
+                        to={
+                            user.post.by && user.post.by._id === user.user._id
+                                ? `/profile`
+                                : `/user/${user.post.by && user.post.by._id}`
+                        }
+                        className="another-post-user-link"
+                    >
+                        {user.post.by && user.post.by.image ? (
+                            <img
+                                className="another-post-user-image"
+                                src={user.post.by.image}
+                                alt=""
+                            />
+                        ) : (
+                            <img
+                                className="another-post-user-image"
+                                src={noImg}
+                                alt=""
+                            />
+                        )}
+                    </Link>
+                    <div className="another-post-user-date">
+                        <p className="another-post-username">
+                            {user.post.by && user.post.by.username}
+                        </p>
+                        <p className="another-post-date">
+                            {dayjs(user.post.createdAt).fromNow(true)} ago
+                        </p>
+                    </div>
                 </div>
-            ) : (
-                <div className="another-post">
-                    <div className="container">
-                        <div className="the-post">
-                            <div className="another-post-flexbox">
+                <p className="post">{user.post.post}</p>
+                <div className="buttons-box">
+                    <Button
+                        onClick={() =>
+                            props.like({
+                                id: user.post._id,
+                                anotherUser: user.post,
+                                user: user.user,
+                            })
+                        }
+                        className={
+                            user.post.likedBy &&
+                            user.post.likedBy.includes(user.user._id)
+                                ? "liked"
+                                : "like-button"
+                        }
+                    >
+                        {user.post.likes}
+                        <FontAwesomeIcon
+                            icon={faHeart}
+                            className="heart-icon"
+                        />
+                    </Button>
+                    <Button
+                        onClick={() =>
+                            props.dislike({
+                                id: user.post._id,
+                                anotherUser: user.post,
+                                user: user.user,
+                            })
+                        }
+                        className={
+                            user.post.dislikedBy &&
+                            user.post.dislikedBy.includes(user.user._id)
+                                ? "disliked"
+                                : "dislike-button"
+                        }
+                    >
+                        {user.post.dislikes}
+                        <FontAwesomeIcon
+                            icon={faHeartBroken}
+                            className="heart-icon"
+                        />
+                    </Button>
+                    <Button
+                        className="comment-button"
+                        onClick={() => {
+                            setModal(!modal);
+                            setComment("");
+                        }}
+                    >
+                        <FontAwesomeIcon
+                            className="comment-icon"
+                            icon={faCommentAlt}
+                        />
+                    </Button>
+                </div>
+                {modal && (
+                    <div className="comment-box">
+                        <input
+                            placeholder="Your comment..."
+                            id="comment"
+                            name="comment"
+                            type="text"
+                            value={comment}
+                            onChange={(e) => setComment(e.target.value)}
+                            className="comment-input"
+                        />
+                        <Button
+                            onClick={postComment}
+                            disabled={!enabled}
+                            className="post-comment-button"
+                        >
+                            Comment
+                        </Button>
+                    </div>
+                )}
+            </div>
+            <div className="comments-container">
+                {user.comments.map((c, key) => {
+                    return (
+                        <div className="comments" key={key}>
+                            <div className="comments-box">
                                 <Link
                                     to={
-                                        user.post.by &&
-                                        user.post.by._id === user.user._id
+                                        c.by && c.by._id === user.user._id
                                             ? `/profile`
-                                            : `/user/${
-                                                  user.post.by &&
-                                                  user.post.by._id
-                                              }`
+                                            : `/user/${c.by && c.by._id}`
                                     }
+                                    className="comment-user-link"
                                 >
-                                    {user.post.by && user.post.by.image ? (
-                                        <img src={user.post.by.image} alt="" />
+                                    {c.by.image ? (
+                                        <img
+                                            className="comment-user-image"
+                                            src={c.by.image}
+                                            alt=""
+                                        />
                                     ) : (
-                                        <img src={noImg} alt="" />
+                                        <img
+                                            className="comment-user-image"
+                                            src={noImg}
+                                            alt=""
+                                        />
                                     )}
                                 </Link>
-                                <div>
-                                    <p>
-                                        {user.post.by && user.post.by.username}
+                                <div className="comment-user-date">
+                                    <p className="comment-username">
+                                        {c.by.username}
                                     </p>
-                                    <p
-                                        style={{
-                                            color: "#d1d1d1",
-                                            fontSize: "12px",
-                                            marginTop: "5px",
-                                        }}
-                                    >
-                                        {dayjs(user.post.createdAt).fromNow(
-                                            true
-                                        )}{" "}
-                                        ago
+                                    <p className="comment-date">
+                                        {dayjs(c.createdAt).fromNow(true)} ago
                                     </p>
                                 </div>
                             </div>
-                            <p className="post">{user.post.post}</p>
-                            <div className="buttons-flex">
-                                <Button
-                                    onClick={() =>
-                                        props.like(
-                                            {
-                                                id: user.post._id,
-                                            },
-                                            {
-                                                user: user.user,
-                                            },
-                                            {
-                                                post: user.post,
-                                            }
-                                        )
-                                    }
-                                    className={
-                                        user.post.likedBy &&
-                                        user.post.likedBy.includes(
-                                            user.user._id
-                                        )
-                                            ? "liked"
-                                            : "like-button"
-                                    }
-                                >
-                                    {user.post.likes}
-                                    <FontAwesomeIcon
-                                        icon={faHeart}
-                                        style={{
-                                            marginLeft: "10px",
-                                        }}
-                                    />
-                                </Button>
-                                <Button
-                                    onClick={() =>
-                                        props.dislike(
-                                            {
-                                                id: user.post._id,
-                                            },
-                                            {
-                                                user: user.user,
-                                            },
-                                            {
-                                                post: user.post,
-                                            }
-                                        )
-                                    }
-                                    className={
-                                        user.post.dislikedBy &&
-                                        user.post.dislikedBy.includes(
-                                            user.user._id
-                                        )
-                                            ? "disliked"
-                                            : "dislike-button"
-                                    }
-                                >
-                                    {user.post.dislikes}
-                                    <FontAwesomeIcon
-                                        icon={faHeartBroken}
-                                        style={{
-                                            marginLeft: "10px",
-                                        }}
-                                    />
-                                </Button>
-                                <Button
-                                    className="comment-button"
-                                    onClick={() => {
-                                        setModal(!modal);
-                                        setComment("");
-                                    }}
-                                >
-                                    <FontAwesomeIcon icon={faCommentAlt} />
-                                </Button>
-                                {modal && (
-                                    <div className="modal">
-                                        <input
-                                            placeholder="Your comment..."
-                                            id="comment"
-                                            name="comment"
-                                            type="text"
-                                            value={comment}
-                                            onChange={(e) =>
-                                                setComment(e.target.value)
-                                            }
-                                        />
-                                        <Button
-                                            onClick={postComment}
-                                            disabled={!enabled}
-                                            className="post-comment-button"
-                                        >
-                                            Post
-                                        </Button>
-                                    </div>
-                                )}
-                            </div>
+                            <p className="comment">{c.comment}</p>
                         </div>
-                    </div>
-                    {user.comments.map((c, key) => {
-                        return (
-                            <div className="comments" key={key}>
-                                <div className="comments-flexbox">
-                                    <Link
-                                        to={
-                                            c.by && c.by._id === user.user._id
-                                                ? `/profile`
-                                                : `/user/${c.by && c.by._id}`
-                                        }
-                                    >
-                                        {c.by.image ? (
-                                            <img src={c.by.image} alt="" />
-                                        ) : (
-                                            <img src={noImg} alt="" />
-                                        )}
-                                    </Link>
-                                    <div>
-                                        <p>{c.by.username}</p>
-                                        <p
-                                            style={{
-                                                color: "#d1d1d1",
-                                                fontSize: "12px",
-                                                marginTop: "5px",
-                                            }}
-                                        >
-                                            {dayjs(c.createdAt).fromNow(true)}{" "}
-                                            ago
-                                        </p>
-                                    </div>
-                                </div>
-                                <p className="comment">{c.comment}</p>
-                            </div>
-                        );
-                    })}
-                </div>
-            )}
+                    );
+                })}
+            </div>
         </div>
     );
 };

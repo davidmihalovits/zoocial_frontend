@@ -2,30 +2,22 @@
 
 .login
     margin: 90px auto
-    width: 280px
+    padding: 0 16px
+    max-width: 300px
         
-    h1 
-        font-size: 45px
+    .login-title 
+        font-size: 30px
         font-weight: bold
 
-    p 
-        text-align: center
-        margin-top: 30px
+    .login-form
+        .login-label
+            display: block
+            margin-top: 20px
 
-    .error
-        color: red
-        text-align: center
-        margin-top: 10px
-
-    a
-        color: $primary-color
-
-    form
-        input
-            width: 280px
+        .login-input
+            width: 100%
             border: 1px solid black
             padding: 10px
-            margin-top: 30px
             outline: none
 
             &:focus 
@@ -35,21 +27,20 @@
         .login-show-hide
             position: absolute
             margin-left: -30px
-            margin-top: 42px
+            margin-top: 12px
             cursor: pointer
 
-        button
+        .login-button
             width: 100%
-            margin-top: 30px
+            margin-top: 20px
             text-transform: unset
-            font-size: 28px
+            font-size: 22px
             background-color: $primary-color
             border-radius: 0px
             color: white
-            height: 60.8px
 
             &:hover 
-                background-color: $primary-color
+                background-color: $hover-color
 
             &:disabled 
                 background-color: #d1d1d1
@@ -57,36 +48,28 @@
             .login-spinner
                 position: absolute
                 color: $primary-color
+                margin-left: 50px
+
+    .not-a-user
+        text-align: center
+        margin: 20px 0 0 0
+
+        .signup-link
+            text-decoration: none
+            color: $primary-color
+
+    .login-error
+        text-align: center
+        margin: 20px 0 0 0
+        color: red
 
 @media only screen and (min-width: 768px)
     .login
-        h1 
-            text-align: center
+        padding: 0 
 
-@media only screen and (min-width: 1200px)
-    .login
-        width: 300px
-        margin: 120px auto 0 auto
-        
-        h1 
-            font-size: 55px
 
-        p 
-            margin-top: 40px
-            font-size: 22px
 
-        .error
-            margin-top: 14px
 
-        form
-            input
-                width: 300px
-                padding: 20px
-                font-size: 18px
-
-            .login-show-hide
-                margin-left: -35px
-                margin-top: 55px
 
             
                 

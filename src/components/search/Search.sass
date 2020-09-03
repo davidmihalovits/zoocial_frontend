@@ -2,81 +2,88 @@
 
 .search
     margin: 90px auto
-    width: 280px
-    word-wrap: break-word
+    padding: 0 16px
+    max-width: 1200px
 
     .search-users
-        font-size: 26px
-        font-weight: bold
+        .search-users-title
+            font-size: 30px
+            font-weight: bold
+
+        .search-users-container
+            display: grid
+            grid-template-columns: 1fr 1fr
+            gap: 10px
+
+            .search-users-container-inner
+                background-color: #f7f7f7
+
+                .search-users-link
+                    text-decoration: none
+                    
+                    .search-users-button
+                        width: 100%
+                        text-transform: unset
+                        border-radius: 0px
+
+                        .search-users-card
+                            display: grid
+                            grid-template-columns: 40px 1fr
+                            justify-items: start
+                            align-items: center
+                            width: 100%
+                        
+                            .search-users-image
+                                width: 35px
+                                height: 35px
+                                object-fit: cover
+
 
     .search-posts
-        font-size: 26px
-        font-weight: bold
-        margin-top: 20px
+        .search-posts-title
+            font-size: 30px
+            font-weight: bold
 
-    .search-card-users
-        display: flex
-        margin-top: 20px
-        align-items: center
-        background-color: #f7f7f7a8
-        border-radius: 12px
-        padding: 10px
-        color: black
+        .search-posts-container            
+            .search-posts-container-inner
+                background-color: #f7f7f7
+                margin-bottom: 10px
 
-        img
-            width: 60px
-            height: 60px
-            object-fit: cover
-            border-radius: 50%
-            margin-right: 10px
+                .search-posts-link
+                    text-decoration: none
 
-        .search-card-flex
-            display: flex
-            flex-direction: column
+                    .search-posts-button
+                        text-transform: unset
+                        width: 100%
+                        border-radius: 0px
+                        
+                        .search-posts-card
+                            width: 100%
 
-            .search-username 
-                font-size: 22px
+                            .search-posts-image-date
+                                display: grid
+                                grid-template-columns: 50px 1fr
+                                align-items: center
 
-    .search-card-posts
-        margin-top: 20px
-        background-color: #f7f7f7a8
-        border-radius: 12px
-        padding: 10px
-        color: black
+                                .search-users-image
+                                    width: 45px
+                                    height: 45px
+                                    object-fit: cover
 
-        .search-post
-            margin-top: 10px
-            font-size: 22px
+                                .search-posts-card-box
+                                    justify-self: start
+                                    text-align: left
 
-        .search-card-flex-all
-            display: flex
-            align-items: center
+                                    .search-username
+                                        font-weight: bold
 
-            img
-                width: 35px
-                height: 35px
-                object-fit: cover
-                border-radius: 50%
-                margin-right: 10px
-
-            .search-card-flex
-                display: flex
-                flex-direction: column
-
-@media only screen and (min-width: 768px) 
+                            .search-post
+                                text-align: left
+                                margin-top: 10px
+                            
+@media only screen and (min-width: 768px)
     .search
-        width: 600px
-        display: flex
+        padding: 0
+        width: 400px
 
-        .search-users-flex
-            flex: 1
-            word-break: break-word
-            margin-right: 20px
 
-        .search-posts-flex
-            flex: 1
-            word-break: break-word
-            margin-left: 20px
-            
-            .search-posts
-                margin-top: 0

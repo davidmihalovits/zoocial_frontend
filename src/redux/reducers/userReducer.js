@@ -43,7 +43,9 @@ const initialState = {
     error: null,
     users: [],
     anotherUser: {},
+    anotherUserPosts: [],
     posts: [],
+    myPosts: [],
     post: {},
     comments: [],
     search: {},
@@ -109,6 +111,7 @@ export default function (state = initialState, action) {
                 users: [],
                 anotherUser: {},
                 posts: [],
+                myPosts: [],
                 post: {},
                 comments: [],
                 search: {},
@@ -120,6 +123,11 @@ export default function (state = initialState, action) {
                 ...state,
                 users: action.payload,
                 anotherUser: {},
+                anotherUserPosts: [],
+                posts: [],
+                post: {},
+                myPosts: [],
+                comments: [],
             };
         case GET_ANOTHER_USER_REQUEST:
             return {
@@ -130,8 +138,12 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 anotherUser: action.payload,
-                users: [],
                 loading: false,
+                users: [],
+                posts: [],
+                myPosts: [],
+                post: {},
+                comments: [],
             };
         case GET_MY_POSTS_REQUEST:
             return {
@@ -141,13 +153,24 @@ export default function (state = initialState, action) {
         case GET_MY_POSTS:
             return {
                 ...state,
-                posts: action.payload,
+                myPosts: action.payload,
                 loading: false,
+                users: [],
+                anotherUser: {},
+                anotherUserPosts: [],
+                posts: [],
+                post: {},
+                comments: [],
             };
         case GET_ANOTHER_USER_POSTS:
             return {
                 ...state,
-                posts: action.payload,
+                anotherUserPosts: action.payload,
+                users: [],
+                posts: [],
+                myPosts: [],
+                post: {},
+                comments: [],
             };
         case GET_FEED_REQUEST:
             return {
@@ -159,11 +182,29 @@ export default function (state = initialState, action) {
                 ...state,
                 posts: action.payload,
                 loading: false,
+                users: [],
+                anotherUser: {},
+                anotherUserPosts: [],
+                myPosts: [],
+                post: {},
+                comments: [],
             };
         case LIKE:
             return {
                 ...state,
                 posts: state.posts.map((p) => {
+                    if (p._id === action.payload._id) {
+                        return action.payload;
+                    }
+                    return p;
+                }),
+                myPosts: state.myPosts.map((p) => {
+                    if (p._id === action.payload._id) {
+                        return action.payload;
+                    }
+                    return p;
+                }),
+                anotherUserPosts: state.anotherUserPosts.map((p) => {
                     if (p._id === action.payload._id) {
                         return action.payload;
                     }
@@ -175,6 +216,18 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 posts: state.posts.map((p) => {
+                    if (p._id === action.payload._id) {
+                        return action.payload;
+                    }
+                    return p;
+                }),
+                myPosts: state.myPosts.map((p) => {
+                    if (p._id === action.payload._id) {
+                        return action.payload;
+                    }
+                    return p;
+                }),
+                anotherUserPosts: state.anotherUserPosts.map((p) => {
                     if (p._id === action.payload._id) {
                         return action.payload;
                     }
@@ -194,7 +247,7 @@ export default function (state = initialState, action) {
                 loading: false,
             };
         case DELETE_POST:
-            return { ...state, posts: action.payload };
+            return { ...state, myPosts: action.payload };
         case UPDATE_PROFILE:
             return { ...state, user: action.payload };
         case FOLLOW:
@@ -204,6 +257,11 @@ export default function (state = initialState, action) {
                 ...state,
                 post: action.payload,
                 loading: false,
+                users: [],
+                anotherUser: {},
+                anotherUserPosts: [],
+                posts: [],
+                myPosts: [],
             };
         case GET_ANOTHER_POST_REQUEST:
             return {

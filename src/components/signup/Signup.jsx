@@ -20,10 +20,10 @@ const Signup = (props) => {
     const user = useSelector((state) => state.userReducer);
 
     useEffect(() => {
-        const token = localStorage.getItem("token");
-        if (token) {
+        if (user.authenticated) {
             props.history.push("/profile");
         }
+        window.scrollTo(0, 0);
     });
 
     const showPassword = () => {
@@ -45,31 +45,40 @@ const Signup = (props) => {
 
     return (
         <div className="signup">
-            <h1>Signup</h1>
-            <form onSubmit={signup} noValidate>
+            <h1 className="signup-title">Signup</h1>
+            <form className="signup-form" onSubmit={signup} noValidate>
+                <label className="signup-label" htmlFor="username">
+                    Username
+                </label>
                 <input
-                    placeholder="Username"
                     id="username"
                     name="username"
                     type="text"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
+                    className="signup-input"
                 />
+                <label className="signup-label" htmlFor="email">
+                    Email
+                </label>
                 <input
-                    placeholder="Email"
                     id="email"
                     name="email"
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    className="signup-input"
                 />
+                <label className="signup-label" htmlFor="password">
+                    Password
+                </label>
                 <input
-                    placeholder="Password"
                     id="password"
                     name="password"
                     type={hidden ? "text" : "password"}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    className="signup-input"
                 />
                 {hidden ? (
                     <FontAwesomeIcon
@@ -84,22 +93,29 @@ const Signup = (props) => {
                         icon={faEye}
                     />
                 )}
-                <Button type="submit" disabled={!enabled || user.loading}>
-                    {user.loading ? (
+                <Button
+                    className="signup-button"
+                    type="submit"
+                    disabled={!enabled || user.loading}
+                >
+                    {user.loading && (
                         <FontAwesomeIcon
                             className="signup-spinner"
                             spin
                             icon={faSpinner}
                         />
-                    ) : (
-                        "Signup"
-                    )}
+                    )}{" "}
+                    Signup
                 </Button>
             </form>
-            <p>
-                Already a user? <Link to="/login">Login</Link>.
+            <p className="not-a-user">
+                Already a user?{" "}
+                <Link className="login-link" to="/login">
+                    Login
+                </Link>
+                .
             </p>
-            {user.error && <div className="error">{user.error}</div>}
+            {user.error && <div className="signup-error">{user.error}</div>}
         </div>
     );
 };

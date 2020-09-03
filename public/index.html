@@ -2,25 +2,39 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+        <link rel="icon" type="image/png" href="./logo.png" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#000000" />
-        <meta
-            name="description"
-            content="Zoocial is a community of nice people."
-        />
-        <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+        <meta name="description" content="Zoocial social media app clone." />
+        <link rel="apple-touch-icon" href="./logo.png" />
+        <link rel="manifest" href="./manifest.json" />
         <link
-            href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100;200;300;400;500;600;700;800;900&family=Kaushan+Script&display=swap"
-            rel="stylesheet"
-        />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap"
-            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Open+Sans:wght@300;400;600;700;800&display=swap"
+            rel="preload"
+            as="style"
+            onload="this.onload=null;this.rel='stylesheet'"
         />
         <title>zoocial</title>
     </head>
     <body>
+        <noscript>JavaScript is required to see this website.</noscript>
+        <noscript>
+            <link
+                href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Open+Sans:wght@300;400;600;700;800&display=swap"
+                rel="stylesheet"
+                type="text/css"
+            />
+        </noscript>
         <div id="root"></div>
+        <script>
+            if ("serviceWorker" in navigator) {
+                window.addEventListener("load", () => {
+                    navigator.serviceWorker
+                        .register("./serviceworker.js")
+                        .then((reg) => console.log("Success: ", reg.scope))
+                        .catch((err) => console.log("Failure: ", err));
+                });
+            }
+        </script>
     </body>
 </html>

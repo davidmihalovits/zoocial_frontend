@@ -1,56 +1,89 @@
 @import '../../App'
 
-.feed
+.feed-container
     margin: 90px auto
-    width: 280px
+    padding: 0 16px
+    max-width: 1200px
 
-    .feed-posts
-        .feed-post
-            border-bottom: 1px solid #ebebeb
-            padding-bottom: 10px
-            margin-bottom: 10px
-            word-wrap: break-word
+    .feed
+        margin-top: 40px
+        background-color: #f7f7f7
+        padding: 15px
 
-            .buttons-flexbox
-                display: flex
-                align-items: center
+        .feed-box
+            display: grid
+            grid-template-columns: 50px 1fr
 
-                .comment-button
-                    margin-left: auto
-                
-                button
-                    margin-top: 15px
-                    font-size: 16px
-                    height: 40px
-                    padding: 0px
-
-                .liked
-                    color: $primary-color
-
-                .disliked
-                    color: $primary-color
-
-            .post
-                font-size: 22px
-
-            .feed-flexbox
-                display: flex
-                align-items: center
-
-                img 
+            .feed-user-link
+                .feed-user-image
                     width: 45px
                     height: 45px
                     object-fit: cover
-                    border-radius: 50%
-                    margin-right: 10px
+
+            .feed-user-date
+                .feed-username
+                    font-weight: bold
+
+                .feed-date
+                    font-weight: 300
+                    font-size: 12px
+
+        .feed-post
+            margin-top: 20px
+            word-break: break-word
+
+        .feed-buttons
+            margin: 20px 0 0 0
+            display: grid
+            grid-template-columns: 1fr 1fr 1fr
+            align-items: center
+            justify-items: center
+
+            .like-button
+                width: 100%
+                border-radius: 0px
+
+                .heart-icon
+                    margin-left: 5px
+
+            .dislike-button
+                width: 100%
+                border-radius: 0px
+                
+                .heart-icon
+                    margin-left: 5px
+
+            .liked
+                width: 100%
+                border-radius: 0px
+                color: $primary-color
+
+                .heart-icon
+                    margin-left: 5px
+
+            .disliked
+                width: 100%
+                border-radius: 0px
+                color: $primary-color
+
+                .heart-icon
+                    margin-left: 5px
+
+            .comment-button-link
+                text-decoration: none
+                width: 100%
+
+                .comment-button
+                    width: 100%
+                    border-radius: 0px
+                
+                    .comment-icon
+                        margin-left: 5px
 
 @media only screen and (min-width: 768px)
-    .feed
-        width: 350px
-
-        .feed-posts
-            .feed-post
-                margin-bottom: 50px
+    .feed-container
+        padding: 0
+        width: 400px
 
 
             
