@@ -37,6 +37,7 @@ const AnotherUser = (props) => {
             });
             props.getAnotherUserPosts({ id: a._id });
         }
+        window.scrollTo(0, 0);
     };
 
     dayjs.extend(relativeTime);

@@ -46,6 +46,7 @@ const Signup = (props) => {
     return (
         <div className="signup">
             <h1 className="signup-title">Signup</h1>
+            <p className="fake">Feel free to use a fake email here.</p>
             <form className="signup-form" onSubmit={signup} noValidate>
                 <label className="signup-label" htmlFor="username">
                     Username
