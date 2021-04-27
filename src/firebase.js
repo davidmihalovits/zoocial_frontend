@@ -1,15 +1,14 @@
 import firebase from "firebase/app";
 import "firebase/storage";
 
-const firebaseConfig = {
-    apiKey: "AIzaSyAnljkqNsUC4im8BqrSb0ksMrmbtCKh9QE",
-    authDomain: "zoocial-fdc73.firebaseapp.com",
-    databaseURL: "https://zoocial-fdc73.firebaseio.com",
-    projectId: "zoocial-fdc73",
-    storageBucket: "zoocial-fdc73.appspot.com",
-    messagingSenderId: "419235996567",
-    appId: "1:419235996567:web:5b89f3aebc701ac7c31ad2",
-    measurementId: "G-QJP99NFT7W",
+var firebaseConfig = {
+    apiKey: "AIzaSyBiV9k4BXEwSWhuQlg8VDpTCeBFchiY98Q",
+    authDomain: "social-78ce0.firebaseapp.com",
+    projectId: "social-78ce0",
+    storageBucket: "social-78ce0.appspot.com",
+    messagingSenderId: "47805025714",
+    appId: "1:47805025714:web:0d2f0d94d045aa5ba228ab",
+    measurementId: "G-SWS18J5PFX",
 };
 
 firebase.initializeApp(firebaseConfig);
