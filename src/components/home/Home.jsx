@@ -14,30 +14,32 @@ const Home = (props) => {
 
     return (
         <div className="home">
-            <div className="home-box">
-                <h1 className="home-title">There we go</h1>
-                <p className="home-paragraph">
-                    Welcome to my social media app clone! I built this capstone
-                    project in my free time to enhance and showcase my skills.
-                    Please take a look and have a good time!
-                </p>
-            </div>
-            <div className="home-box">
-                <h1 className="home-title">It's fun</h1>
-                <p className="home-paragraph">
-                    You're going to find some cool things such as CRUD
-                    functionalities, server-side authentication, global state
-                    management and so on.
-                </p>
-            </div>
-            <div className="home-box">
-                <h1 className="home-title">Not finished yet</h1>
-                <p className="home-paragraph">
-                    I'm not done with this project yet because I learn new
-                    things every day and implement them here. I also improve
-                    code readability and performance.
-                </p>
-            </div>
+            <p className="home-paragraph">
+                Welcome to my social media app clone. Log in or sign up to
+                begin.
+            </p>
+            <p className="home-paragraph">
+                Frontend code:{" "}
+                <a
+                    href="https://github.com/davidmihalovits/zoocial_frontend"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="home-link"
+                >
+                    https://github.com/davidmihalovits/zoocial_frontend
+                </a>
+            </p>
+            <p className="home-paragraph">
+                Backend code:{" "}
+                <a
+                    href="https://github.com/davidmihalovits/zoocial_backend"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="home-link"
+                >
+                    https://github.com/davidmihalovits/zoocial_backend
+                </a>
+            </p>
         </div>
     );
 };
